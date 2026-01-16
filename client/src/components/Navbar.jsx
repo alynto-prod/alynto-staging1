@@ -1,62 +1,94 @@
 import React, { useState } from 'react';
-import { Menu, X, ShoppingCart } from 'lucide-react';
+import { Layout, Menu, Button, Drawer } from 'antd';
+import { ShoppingCart, Menu as MenuIcon } from 'lucide-react';
+
+const { Header } = Layout;
 
 const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [open, setOpen] = useState(false);
+
+    const menuItems = [
+        { key: 'home', label: 'HOME' },
+        { key: 'shop', label: 'SHOP ALL' },
+        { key: 'apparel', label: 'APPAREL' },
+        { key: 'gear', label: 'GEAR' },
+    ];
+
+    const showDrawer = () => {
+        setOpen(true);
+    };
+
+    const onClose = () => {
+        setOpen(false);
+    };
 
     return (
-        <nav className="fixed w-full z-50 bg-black/90 backdrop-blur-sm border-b border-gray-800">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-20">
-
-                    {/* Logo */}
-                    <div className="flex-shrink-0 flex items-center">
-                        <span className="text-white text-2xl font-bold tracking-tighter uppercase border-2 border-armory-orange px-2 py-1">
-                            RUSTY<span className="text-armory-orange">OAK</span>
-                        </span>
-                    </div>
-
-                    {/* Desktop Menu */}
-                    <div className="hidden md:block">
-                        <div className="ml-10 flex items-baseline space-x-8">
-                            <a href="#" className="text-white hover:text-armory-orange px-3 py-2 rounded-md text-lg font-medium transition-colors">HOME</a>
-                            <a href="#" className="text-gray-300 hover:text-armory-orange px-3 py-2 rounded-md text-lg font-medium transition-colors">SHOP ALL</a>
-                            <a href="#" className="text-gray-300 hover:text-armory-orange px-3 py-2 rounded-md text-lg font-medium transition-colors">APPAREL</a>
-                            <a href="#" className="text-gray-300 hover:text-armory-orange px-3 py-2 rounded-md text-lg font-medium transition-colors">GEAR</a>
-                        </div>
-                    </div>
-
-                    {/* Icons */}
-                    <div className="hidden md:flex items-center space-x-6">
-                        <button className="text-gray-300 hover:text-armory-orange transition-colors">
-                            <ShoppingCart size={24} />
-                        </button>
-                    </div>
-
-                    {/* Mobile menu button */}
-                    <div className="-mr-2 flex md:hidden">
-                        <button
-                            onClick={() => setIsOpen(!isOpen)}
-                            className="inline-flex items-center justify-center p-2 text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none"
-                        >
-                            {isOpen ? <X size={28} /> : <Menu size={28} />}
-                        </button>
-                    </div>
-                </div>
+        <Header
+            style={{
+                position: 'sticky',
+                top: 0,
+                zIndex: 50,
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                borderBottom: '1px solid #1f1f1f',
+                padding: '0 24px',
+                backdropFilter: 'blur(8px)',
+            }}
+        >
+            {/* Logo */}
+            <div className="flex-shrink-0 flex items-center mr-8">
+                <img src="/src/assets/logo.png" alt="Rusty Oak Armory" className="h-12 w-auto" />
             </div>
 
-            {/* Mobile Menu */}
-            {isOpen && (
-                <div className="md:hidden bg-black border-b border-gray-800">
-                    <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                        <a href="#" className="text-white block px-3 py-2 text-base font-medium hover:text-armory-orange">HOME</a>
-                        <a href="#" className="text-gray-300 block px-3 py-2 text-base font-medium hover:text-armory-orange">SHOP ALL</a>
-                        <a href="#" className="text-gray-300 block px-3 py-2 text-base font-medium hover:text-armory-orange">APPAREL</a>
-                        <a href="#" className="text-gray-300 block px-3 py-2 text-base font-medium hover:text-armory-orange">GEAR</a>
-                    </div>
-                </div>
-            )}
-        </nav>
+            {/* Desktop Menu */}
+            <div className="hidden md:flex flex-1">
+                <Menu
+                    theme="dark"
+                    mode="horizontal"
+                    defaultSelectedKeys={['home']}
+                    items={menuItems}
+                    style={{ flex: 1, minWidth: 0, backgroundColor: 'transparent', borderBottom: 'none', fontSize: '16px', fontWeight: 500 }}
+                />
+            </div>
+
+            {/* Icons & Actions */}
+            <div className="flex items-center gap-4">
+                <Button
+                    type="text"
+                    icon={<ShoppingCart size={24} />}
+                    style={{ color: '#fff' }}
+                    className="hover:text-armory-orange"
+                />
+
+                {/* Mobile Menu Button */}
+                <Button
+                    className="md:hidden"
+                    type="text"
+                    icon={<MenuIcon size={24} />}
+                    onClick={showDrawer}
+                    style={{ color: '#fff' }}
+                />
+            </div>
+
+            {/* Mobile Menu Drawer */}
+            <Drawer
+                title={<span className="text-armory-orange font-bold">MENU</span>}
+                placement="right"
+                onClose={onClose}
+                open={open}
+                styles={{ body: { padding: 0 } }}
+            >
+                <Menu
+                    theme="dark"
+                    mode="vertical"
+                    items={menuItems}
+                    style={{ borderRight: 0 }}
+                />
+            </Drawer>
+        </Header>
     );
 };
 
