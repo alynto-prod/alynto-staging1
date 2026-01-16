@@ -1,13 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+Pro:wght@400;600&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --color-armory-red: #B54A3C;
+  --color-armory-black: #1A1A1A;
+  --color-armory-white: #FFFFFF;
+  --color-gunmetal: #4A4A4A;
+  --color-tactical-tan: #C4A574;
+  --color-oak-brown: #3D2817;
+
+  --font-bebas: 'Bebas Neue', sans-serif;
+  --font-source: 'Source Sans Pro', sans-serif;
+}
 
 body {
-  background-color: #000000;
-  color: #949493;
-  font-family: 'Oswald', sans-serif;
+  background-color: var(--color-armory-black);
+  color: var(--color-armory-white);
+  font-family: var(--font-source);
   overflow-x: hidden;
 }
 
@@ -25,5 +34,5 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF6000;
+  background: var(--color-armory-red);
 }
