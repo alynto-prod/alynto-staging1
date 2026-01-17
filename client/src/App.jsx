@@ -12,14 +12,16 @@ import Hero from './components/Hero';
 import AgencyCTA from './components/AgencyCTA';
 import ScrollyTelling from './components/ScrollyTelling';
 import ServicesOverview from './components/ServicesOverview';
+import LocationSection from './components/LocationSection';
 
 // Landing Page for the "Ground Up" rebuild
 const LandingPage = () => (
-  <div className="min-h-screen bg-[#010101]" style={{ overflow: 'visible' }}>
+  <div className="min-h-screen bg-[#010101]" style={{ overflowX: 'hidden' }}>
     <Hero />
     <AgencyCTA />
     <ScrollyTelling />
     <ServicesOverview />
+    <LocationSection />
   </div>
 );
 
