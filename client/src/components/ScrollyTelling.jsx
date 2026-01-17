@@ -149,7 +149,7 @@ const ScrollyTelling = () => {
                             textShadow: '0 4px 20px rgba(0,0,0,0.5)'
                         }}
                     >
-                        <h2 style={{ fontSize: '6rem', lineHeight: '1', fontWeight: '400', marginBottom: '1rem' }}>ADAPTABLE</h2>
+                        <h2 style={{ fontSize: '6rem', lineHeight: '1', fontWeight: 'bold', marginBottom: '1rem' }}>ADAPTABLE</h2>
                         <p style={{ fontSize: '1.5rem', fontWeight: '300', opacity: 0.8 }}>Equipment that works for any situation</p>
                     </motion.div>
 
