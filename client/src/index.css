@@ -2,8 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html {
-    /* Standard scrolling to prevent issues */
-  }
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0A0A0A;
+    /* Deep Black to hide any gaps */
+    overflow-x: hidden;
+    width: 100%;
+}
+
+#root {
+    width: 100%;
+    padding: 0;
+    margin: 0;
 }
