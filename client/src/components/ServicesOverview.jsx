@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Typography, Row, Col } from 'antd';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const { Title, Paragraph } = Typography;
 
@@ -71,12 +72,18 @@ const ServicesOverview = () => {
             `}</style>
 
             <div className="w-full max-w-[90rem] px-4 md:px-8" style={{ paddingLeft: '8vw', paddingRight: '8vw' }}>
-                <div className="text-center mb-24">
+                <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.8 }}
+                    className="text-center mb-24"
+                >
                     <Title level={2} style={{ color: '#fff', fontFamily: 'Bebas Neue', fontSize: 'clamp(3rem, 5vw, 5rem)', letterSpacing: '2px', marginBottom: '1rem' }}>
                         Our Services
                     </Title>
                     <div className="w-24 h-1 bg-[#B54A3C] mx-auto opacity-80" />
-                </div>
+                </motion.div>
 
                 <div className="bento-grid">
                     {services.map((service) => (
