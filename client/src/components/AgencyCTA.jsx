@@ -9,7 +9,7 @@ const AgencyCTA = () => {
     const navigate = useNavigate();
 
     return (
-    return (
+
         <div className="py-24 px-8 md:px-32 lg:px-48">
             <div className="max-w-4xl mx-auto bg-[#141414] rounded-2xl border border-white/5 relative overflow-hidden shadow-2xl">
                 {/* Background Element */}
