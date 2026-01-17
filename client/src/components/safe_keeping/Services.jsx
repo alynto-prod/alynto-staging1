@@ -52,7 +52,10 @@ const Services = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="text-center mb-20">
                     <span className="text-armory-red font-bold uppercase tracking-[0.2em] text-sm animate-pulse">Execute with Precision</span>
-                    <h2 className="text-5xl md:text-6xl font-black text-white uppercase tracking-tighter mt-4 mb-2 font-bebas">
+                    <h2
+                        className="text-5xl md:text-6xl font-black text-white uppercase tracking-tighter mt-4 mb-2 font-bebas"
+                        style={{ color: 'white' }}
+                    >
                         Mission Services
                     </h2>
                     <div className="w-24 h-1 bg-gradient-to-r from-transparent via-armory-red to-transparent mx-auto mt-6" />
