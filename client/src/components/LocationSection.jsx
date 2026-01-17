@@ -25,64 +25,66 @@ const LocationSection = () => {
                 className="w-full h-full object-cover opacity-60"
             />
 
-            {/* Overlay Box */}
-            <div className="absolute top-1/2 -translate-y-1/2 z-20 w-[90%] left-[5%] md:w-[30%] md:left-[20%]">
-                <motion.div
-                    initial={{ opacity: 0, x: -50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                    className="bg-[#141414]/90 backdrop-blur-md border border-white/10 p-8 md:p-12 rounded-2xl shadow-2xl relative overflow-hidden group"
-                >
-                    {/* Glow Effect */}
-                    <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#B54A3C] rounded-full blur-[60px] opacity-20 pointer-events-none" />
+            {/* Overlay Box Container */}
+            <div className="absolute inset-0 z-20 flex items-center justify-start px-4 md:px-24 pointer-events-none">
+                <div className="w-full max-w-[350px] h-[85%] pointer-events-auto">
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                        className="bg-[#141414]/90 backdrop-blur-md border border-white/10 p-8 rounded-2xl shadow-2xl relative overflow-hidden group h-full flex flex-col justify-between"
+                    >
+                        {/* Glow Effect */}
+                        <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#B54A3C] rounded-full blur-[60px] opacity-20 pointer-events-none" />
 
-                    <div className="relative z-10">
-                        <Title level={2} style={{ color: '#fff', fontFamily: 'Bebas Neue', fontSize: '3rem', marginBottom: '1.5rem', letterSpacing: '2px' }}>
-                            VISIT THE ARMORY
-                        </Title>
+                        <div className="relative z-10 flex flex-col h-full">
+                            <Title level={2} style={{ color: '#fff', fontFamily: 'Bebas Neue', fontSize: '3rem', marginBottom: '1.5rem', letterSpacing: '2px' }}>
+                                VISIT THE ARMORY
+                            </Title>
 
-                        <div className="space-y-6 mb-8">
-                            <div className="flex items-start gap-4">
-                                <div className="p-2 bg-white/5 rounded-lg border border-white/10 text-[#B54A3C]">
-                                    <MapPin size={20} />
+                            <div className="space-y-8 flex-grow">
+                                <div className="flex items-start gap-4">
+                                    <div className="p-2 bg-white/5 rounded-lg border border-white/10 text-[#B54A3C]">
+                                        <MapPin size={24} />
+                                    </div>
+                                    <div>
+                                        <h4 className="font-bold tracking-wide mb-1" style={{ color: '#fff' }}>LOCATION</h4>
+                                        <p className="font-source" style={{ color: '#fff' }}>
+                                            Mount Juliet, TN 37122<br />
+                                            United States
+                                        </p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h4 className="text-white font-bold tracking-wide mb-1">LOCATION</h4>
-                                    <p className="text-gray-400 font-source">
-                                        Mount Juliet, TN 37122<br />
-                                        United States
-                                    </p>
+
+                                <div className="flex items-start gap-4">
+                                    <div className="p-2 bg-white/5 rounded-lg border border-white/10 text-[#B54A3C]">
+                                        <Clock size={24} />
+                                    </div>
+                                    <div>
+                                        <h4 className="font-bold tracking-wide mb-1" style={{ color: '#fff' }}>HOURS</h4>
+                                        <p className="font-source" style={{ color: '#fff' }}>
+                                            Mon - Fri: 10:00 AM - 6:00 PM<br />
+                                            Sat: 10:00 AM - 4:00 PM<br />
+                                            Sun: Closed
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-4">
-                                <div className="p-2 bg-white/5 rounded-lg border border-white/10 text-[#B54A3C]">
-                                    <Clock size={20} />
-                                </div>
-                                <div>
-                                    <h4 className="text-white font-bold tracking-wide mb-1">HOURS</h4>
-                                    <p className="text-gray-400 font-source">
-                                        Mon - Fri: 10:00 AM - 6:00 PM<br />
-                                        Sat: 10:00 AM - 4:00 PM<br />
-                                        Sun: Closed
-                                    </p>
-                                </div>
-                            </div>
+                            <Button
+                                type="primary"
+                                size="large"
+                                icon={<Navigation size={18} />}
+                                href="https://maps.google.com/?q=Mt.+Juliet,+TN"
+                                target="_blank"
+                                className="bg-[#B54A3C] hover:bg-[#8e3a2f] border-none h-14 w-full text-lg tracking-widest font-bold uppercase transition-all duration-300 shadow-lg hover:shadow-[#B54A3C]/40 mt-auto"
+                            >
+                                Get Directions
+                            </Button>
                         </div>
-
-                        <Button
-                            type="primary"
-                            size="large"
-                            icon={<Navigation size={18} />}
-                            href="https://maps.google.com/?q=Mt.+Juliet,+TN"
-                            target="_blank"
-                            className="bg-[#B54A3C] hover:bg-[#8e3a2f] border-none h-14 w-full text-lg tracking-widest font-bold uppercase transition-all duration-300 shadow-lg hover:shadow-[#B54A3C]/40"
-                        >
-                            Get Directions
-                        </Button>
-                    </div>
-                </motion.div>
+                    </motion.div>
+                </div>
             </div>
         </section>
     );
