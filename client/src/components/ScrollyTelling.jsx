@@ -149,38 +149,38 @@ const ScrollyTelling = () => {
                             textShadow: '0 4px 20px rgba(0,0,0,0.5)'
                         }}
                     >
-                        <h2 style={{ fontSize: '6rem', lineHeight: '1', fontWeight: 'bold', marginBottom: '1rem' }}>ADAPTABLE</h2>
-                        <p style={{ fontSize: '1.5rem', fontWeight: '300', opacity: 0.8 }}>Equipment that works for any situation</p>
+                        <h2 style={{ fontSize: 'clamp(3rem, 15vw, 6rem)', lineHeight: '1', fontWeight: 'bold', marginBottom: '1rem' }}>ADAPTABLE</h2>
+                        <p style={{ fontSize: 'clamp(1rem, 4vw, 1.5rem)', fontWeight: '300', opacity: 0.8 }}>Equipment that works for any situation</p>
                     </motion.div>
 
                     {/* Beat B: Modular (Right) */}
                     <motion.div
                         className="absolute top-1/2 max-w-lg text-right -translate-y-1/2"
                         style={{
-                            right: '5%', // Fixed positioning to ensure Right side
+                            right: '5%',
                             left: 'auto',
                             opacity: beatBOpacity,
                             x: beatBX,
                             color: '#ffffff'
                         }}
                     >
-                        <h3 style={{ fontSize: '4rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>MODULAR</h3>
-                        <p style={{ fontSize: '1.25rem', opacity: 0.8 }}>Adapt instantly. Complete system integration.</p>
+                        <h3 style={{ fontSize: 'clamp(2.5rem, 10vw, 4rem)', fontWeight: 'bold', marginBottom: '0.5rem' }}>MODULAR</h3>
+                        <p style={{ fontSize: 'clamp(1rem, 3vw, 1.25rem)', opacity: 0.8 }}>Adapt instantly. Complete system integration.</p>
                     </motion.div>
 
                     {/* Beat C: Lightweight (Left) */}
                     <motion.div
                         className="absolute top-1/2 max-w-lg text-left -translate-y-1/2"
                         style={{
-                            left: '5%', // Fixed positioning to ensure Left side
+                            left: '5%',
                             right: 'auto',
                             opacity: beatCOpacity,
                             x: beatCX,
                             color: '#ffffff'
                         }}
                     >
-                        <h3 style={{ fontSize: '4rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>LIGHTWEIGHT</h3>
-                        <p style={{ fontSize: '1.25rem', opacity: 0.8 }}>Aerospace grade alloys. Zero compromise.</p>
+                        <h3 style={{ fontSize: 'clamp(2.5rem, 10vw, 4rem)', fontWeight: 'bold', marginBottom: '0.5rem' }}>LIGHTWEIGHT</h3>
+                        <p style={{ fontSize: 'clamp(1rem, 3vw, 1.25rem)', opacity: 0.8 }}>Aerospace grade alloys. Zero compromise.</p>
                     </motion.div>
 
                     {/* Beat D: Persistent 3/4 Down (Text) + Centered List (Right) */}
@@ -194,7 +194,7 @@ const ScrollyTelling = () => {
                         }}
                     >
                         <div className="md:w-1/2">
-                            <h2 style={{ fontSize: '5rem', fontWeight: 'bold', marginBottom: '1rem', lineHeight: '1' }}>BUILD YOURS TODAY</h2>
+                            <h2 style={{ fontSize: 'clamp(2.5rem, 8vw, 5rem)', fontWeight: 'bold', marginBottom: '1rem', lineHeight: '1' }}>BUILD YOURS TODAY</h2>
                             <a href="#configurator" className="pointer-events-auto inline-block px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold tracking-widest text-sm uppercase transition-colors" style={{ textDecoration: 'none', color: 'white' }}>
                                 Start Configuration
                             </a>
@@ -205,7 +205,7 @@ const ScrollyTelling = () => {
                     <motion.div
                         className="absolute top-1/2 -translate-y-1/2 flex flex-col gap-4 text-right pointer-events-auto"
                         style={{
-                            right: '5%', // Fixed positioning to ensure Right side
+                            right: '5%',
                             left: 'auto',
                             opacity: beatDOpacity,
                             color: '#ffffff'
@@ -227,7 +227,7 @@ const ScrollyTelling = () => {
                                 <div
                                     className={`font-bold tracking-wider transition-colors duration-300`}
                                     style={{
-                                        fontSize: '1.5rem',
+                                        fontSize: 'clamp(1rem, 2vw, 1.5rem)',
                                         color: activeComponent === item ? '#ef4444' : 'rgba(255,255,255,0.4)',
                                         transition: 'color 0.3s ease'
                                     }}
