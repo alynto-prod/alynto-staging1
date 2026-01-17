@@ -9,9 +9,11 @@ const AgencyCTA = () => {
     const navigate = useNavigate();
 
     return (
-
-        <div className="py-24 px-8 md:px-32 lg:px-48">
-            <div className="max-w-4xl mx-auto bg-[#141414] rounded-2xl border border-white/5 relative overflow-hidden shadow-2xl">
+        <div style={{ padding: '6rem 10%', width: '100%', boxSizing: 'border-box' }}>
+            <div
+                className="bg-[#141414] rounded-2xl border border-white/5 relative overflow-hidden shadow-2xl"
+                style={{ maxWidth: '900px', margin: '0 auto' }}
+            >
                 {/* Background Element */}
                 <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-armory-red/10 to-transparent pointer-events-none" />
 
@@ -48,7 +50,8 @@ const AgencyCTA = () => {
                                 <img
                                     src="/src/assets/logo.png"
                                     alt="Agency Badge"
-                                    className="relative z-10 w-40 h-auto opacity-90 drop-shadow-2xl"
+                                    className="relative z-10 opacity-90 drop-shadow-2xl"
+                                    style={{ width: '160px', height: 'auto' }}
                                 />
                             </div>
                         </Col>
