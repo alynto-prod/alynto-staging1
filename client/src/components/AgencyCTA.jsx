@@ -11,8 +11,8 @@ const AgencyCTA = () => {
     return (
         <div style={{ padding: '6rem 10%', width: '100%', boxSizing: 'border-box', background: 'linear-gradient(to bottom, #1A1A1A, #010101)', position: 'relative', zIndex: 10 }}>
             <div
-                className="bg-[#141414] rounded-2xl border border-white/5 relative overflow-hidden shadow-2xl"
-                style={{ maxWidth: '900px', margin: '0 auto' }}
+                className="bg-[#141414] rounded-2xl border border-white/5 relative overflow-hidden"
+                style={{ maxWidth: '900px', margin: '0 auto', boxShadow: '0 0 30px rgba(255, 255, 255, 0.1)' }}
             >
                 {/* Background Element */}
                 <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-armory-red/10 to-transparent pointer-events-none" />
