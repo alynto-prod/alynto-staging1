@@ -1,18 +1,30 @@
 import React, { useState } from 'react';
 import { Layout, Menu, Button, Drawer } from 'antd';
 import { ShoppingCart, Menu as MenuIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
+import logo from '../assets/logo.png';
 
 const { Header } = Layout;
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
 
     const menuItems = [
-        { key: 'home', label: 'HOME' },
+        { key: '/', label: 'HOME' },
+
         { key: 'shop', label: 'SHOP ALL' },
         { key: 'apparel', label: 'APPAREL' },
         { key: 'gear', label: 'GEAR' },
     ];
+
+    const handleMenuClick = ({ key }) => {
+        if (key.startsWith('/')) {
+            navigate(key);
+            setOpen(false);
+        }
+    };
 
     const showDrawer = () => {
         setOpen(true);
@@ -40,7 +52,7 @@ const Navbar = () => {
         >
             {/* Logo */}
             <div className="flex-shrink-0 flex items-center mr-8">
-                <img src="/src/assets/logo.png" alt="Rusty Oak Armory" className="h-12 w-auto" />
+                <img src={logo} alt="Rusty Oak Armory" className="h-12 w-auto" />
             </div>
 
             {/* Desktop Menu */}
@@ -48,8 +60,9 @@ const Navbar = () => {
                 <Menu
                     theme="dark"
                     mode="horizontal"
-                    defaultSelectedKeys={['home']}
+                    defaultSelectedKeys={['/']}
                     items={menuItems}
+                    onClick={handleMenuClick}
                     style={{ flex: 1, minWidth: 0, backgroundColor: 'transparent', borderBottom: 'none', fontSize: '16px', fontWeight: 500 }}
                 />
             </div>
@@ -85,6 +98,7 @@ const Navbar = () => {
                     theme="dark"
                     mode="vertical"
                     items={menuItems}
+                    onClick={handleMenuClick}
                     style={{ borderRight: 0 }}
                 />
             </Drawer>

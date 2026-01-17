@@ -9,17 +9,24 @@ import AgeGate from './components/AgeGate';
 import AgencyLogin from './components/AgencyLogin';
 import AgencyPricing from './components/AgencyPricing';
 import AgencyCTA from './components/AgencyCTA';
+import ServiceDetail from './components/ServiceDetail';
+import ScrollyTelling from './components/ScrollyTelling';
 
 const { Footer } = Layout;
 
 // Wrapper for the main landing page content
 const LandingPage = () => (
-  <>
-    <Hero />
-    <Services />
-    <AgencyCTA />
-    <ProductGrid />
-  </>
+  <div className="flex flex-col relative w-full bg-[#1A1A1A]">
+    <div className="relative z-10"><Hero /></div>
+    <div className="relative z-20 bg-[#050505]"><Services /></div>
+    <div className="relative z-20 bg-[#1A1A1A]"><AgencyCTA /></div>
+    <div className="relative z-20 bg-[#1A1A1A]"><ProductGrid /></div>
+
+    {/* ScrollyTelling content */}
+    <div className="relative z-30 bg-[#010101]">
+      <ScrollyTelling />
+    </div>
+  </div>
 );
 
 function App() {
@@ -46,6 +53,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/agency-login" element={<AgencyLogin />} />
             <Route path="/agency-pricing" element={<AgencyPricing />} />
+            <Route path="/services/:slug" element={<ServiceDetail />} />
           </Routes>
 
           <Footer style={{ textAlign: 'center', backgroundColor: '#1A1A1A', borderTop: '1px solid #333', color: '#9CA3AF' }}>
