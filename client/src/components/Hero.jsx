@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, Button, Space } from 'antd';
 import { ArrowRight } from 'lucide-react';
+import heroBg from '../assets/hero_bg_patriotic.png';
 
 const { Title, Paragraph } = Typography;
 
@@ -8,12 +9,14 @@ const Hero = () => {
     return (
         <div className="relative h-screen bg-black flex items-center justify-center overflow-hidden">
             {/* Background with overlay */}
-            <div className="absolute inset-0 z-0">
-                <div className="absolute inset-0 bg-gradient-to-t from-armory-black via-armory-black/50 to-transparent z-10" />
-                <img
-                    src="/src/assets/hero-bg.png"
-                    alt="Tactical Gear Background"
-                    className="w-full h-full object-cover opacity-60 grayscale"
+            <div className="relative h-screen w-full overflow-hidden">
+                {/* Background Image */}
+                <div
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
+                    style={{
+                        backgroundImage: `url(${heroBg})`,
+                        filter: 'brightness(0.6)'
+                    }}
                 />
             </div>
 
@@ -31,7 +34,7 @@ const Hero = () => {
                         lineHeight: 1
                     }}
                 >
-                    Forged for <span className="text-transparent bg-clip-text bg-gradient-to-r from-armory-red to-red-600">Freedom</span>
+                    Local Firearm <span className="text-transparent bg-clip-text bg-gradient-to-r from-armory-red to-red-600">Specialist</span>
                 </Title>
 
                 <Paragraph
