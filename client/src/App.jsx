@@ -18,8 +18,8 @@ const LandingPage = () => (
   <div className="min-h-screen bg-[#1A1A1A]" style={{ overflow: 'visible' }}>
     <Hero />
     <AgencyCTA />
-    <ServicesOverview />
     <ScrollyTelling />
+    <ServicesOverview />
   </div>
 );
 
