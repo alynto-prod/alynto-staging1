@@ -97,22 +97,27 @@ const ScrollyTelling = () => {
     }, [images, springScroll]);
 
     // Animation Helpers - Updated for reliability and user requests
-    // Beat A: Precision (Top) - Moved higher
-    const beatAOpacity = useTransform(scrollYProgress, [0, 0.15, 0.2], [1, 1, 0]);
-    const beatAY = useTransform(scrollYProgress, [0, 0.2], [0, -50]);
+    // Timed with 1% gaps (~2 frames) between beats for a "clean cut" effect
 
-    // Beat B: Modular (Right) - Quick Fade In, No Motion
-    // Duration 0.20 -> 5% is 0.01. Let's do 0.02 for smoothness.
-    const beatBOpacity = useTransform(scrollYProgress, [0.20, 0.22, 0.38, 0.40], [0, 1, 1, 0]);
-    // const beatBX = useTransform(scrollYProgress, [0.20, 0.40], [100, -100]); // Removed
+    // Beat A: Precision (Top) 
+    // Ends at 0.24. Gap 0.24-0.25.
+    const beatAOpacity = useTransform(scrollYProgress, [0, 0.20, 0.24], [1, 1, 0]);
+    const beatAY = useTransform(scrollYProgress, [0, 0.24], [0, -50]);
 
-    // Beat C: Lightweight (Left) - Quick Fade In, No Motion
-    const beatCOpacity = useTransform(scrollYProgress, [0.45, 0.47, 0.63, 0.65], [0, 1, 1, 0]);
-    // const beatCX = useTransform(scrollYProgress, [0.45, 0.65], [-100, 100]); // Removed
+    // Beat B: Modular (Right)
+    // Starts at 0.25. Ends at 0.50. Gap 0.50-0.51.
+    const beatBOpacity = useTransform(scrollYProgress, [0.25, 0.29, 0.46, 0.50], [0, 1, 1, 0]);
+    const beatBX = useTransform(scrollYProgress, [0.25, 0.50], [100, -100]);
+
+    // Beat C: Lightweight (Left)
+    // Starts at 0.51. Ends at 0.74. Gap 0.74-0.75.
+    const beatCOpacity = useTransform(scrollYProgress, [0.51, 0.55, 0.70, 0.74], [0, 1, 1, 0]);
+    const beatCX = useTransform(scrollYProgress, [0.51, 0.74], [-100, 100]);
 
     // Beat D: Persistent (Bottom + List)
-    const beatDOpacity = useTransform(scrollYProgress, [0.70, 0.75], [0, 1]); // Fade in 
-    const beatDY = useTransform(scrollYProgress, [0.70, 0.75], [50, 0]); // Slide up slightly (optional, but nice)
+    // Starts at 0.75.
+    const beatDOpacity = useTransform(scrollYProgress, [0.75, 0.79], [0, 1]);
+    const beatDY = useTransform(scrollYProgress, [0.75, 0.79], [50, 0]);
 
     const [activeComponent, setActiveComponent] = useState(null);
 
@@ -150,10 +155,12 @@ const ScrollyTelling = () => {
 
                     {/* Beat B: Modular (Right) */}
                     <motion.div
-                        className="absolute top-1/2 right-10 md:right-20 max-w-lg text-right -translate-y-1/2"
+                        className="absolute top-1/2 max-w-lg text-right -translate-y-1/2"
                         style={{
+                            right: '5%', // Fixed positioning to ensure Right side
+                            left: 'auto',
                             opacity: beatBOpacity,
-                            // x: beatBX, // Removed
+                            x: beatBX,
                             color: '#ffffff'
                         }}
                     >
@@ -163,10 +170,12 @@ const ScrollyTelling = () => {
 
                     {/* Beat C: Lightweight (Left) */}
                     <motion.div
-                        className="absolute top-1/2 left-10 md:left-20 max-w-lg text-left -translate-y-1/2"
+                        className="absolute top-1/2 max-w-lg text-left -translate-y-1/2"
                         style={{
+                            left: '5%', // Fixed positioning to ensure Left side
+                            right: 'auto',
                             opacity: beatCOpacity,
-                            // x: beatCX, // Removed
+                            x: beatCX,
                             color: '#ffffff'
                         }}
                     >
@@ -194,10 +203,11 @@ const ScrollyTelling = () => {
 
                     {/* List Group - Vertically Centered on Right */}
                     <motion.div
-                        className="absolute top-1/2 right-10 md:right-20 -translate-y-1/2 flex flex-col gap-4 text-right pointer-events-auto"
+                        className="absolute top-1/2 -translate-y-1/2 flex flex-col gap-4 text-right pointer-events-auto"
                         style={{
+                            right: '5%', // Fixed positioning to ensure Right side
+                            left: 'auto',
                             opacity: beatDOpacity,
-                            // No Y transform here to keep it perfectly centered
                             color: '#ffffff'
                         }}
                     >
