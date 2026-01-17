@@ -9,7 +9,7 @@ const AgencyCTA = () => {
     const navigate = useNavigate();
 
     return (
-        <div style={{ padding: '6rem 10%', width: '100%', boxSizing: 'border-box', background: 'linear-gradient(to bottom, #1A1A1A, #010101)' }}>
+        <div style={{ padding: '6rem 10%', width: '100%', boxSizing: 'border-box', background: 'linear-gradient(to bottom, #1A1A1A, #010101)', position: 'relative', zIndex: 10 }}>
             <div
                 className="bg-[#141414] rounded-2xl border border-white/5 relative overflow-hidden shadow-2xl"
                 style={{ maxWidth: '900px', margin: '0 auto' }}
