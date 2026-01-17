@@ -26,7 +26,7 @@ const LocationSection = () => {
             />
 
             {/* Overlay Box */}
-            <div className="absolute top-1/2 left-4 md:left-24 -translate-y-1/2 z-20 w-full max-w-md">
+            <div className="absolute top-1/2 -translate-y-1/2 z-20 w-[90%] left-[5%] md:w-[30%] md:left-[20%]">
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     whileInView={{ opacity: 1, x: 0 }}
