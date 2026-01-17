@@ -3,7 +3,7 @@ import { useScroll, useTransform, useSpring, motion, AnimatePresence } from 'fra
 
 const FRAME_COUNT = 192;
 const IMAGES_PATH = '/rotating-gun/';
-const IMAGE_FORMAT = '.gif'; // Using GIFs as provided
+const IMAGE_FORMAT = '.gif';
 
 const ScrollyTelling = () => {
     const containerRef = useRef(null);
@@ -12,46 +12,35 @@ const ScrollyTelling = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [loadingProgress, setLoadingProgress] = useState(0);
 
-    // Track scroll progress of the container
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start start", "end end"]
     });
 
-    // Smooth out the scroll value
     const springScroll = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
-    // Preload Images
     useEffect(() => {
         let loadedCount = 0;
         const imgArray = [];
 
         const loadImages = async () => {
-            // Files are named ffout001.gif to ffout192.gif
-            // Need to match exact filenames from directory
             for (let i = 1; i <= FRAME_COUNT; i++) {
                 const img = new Image();
-                // Naming convention: ffout[NNN].gif
-                // Pad to 3 digits: 1 -> 001
                 const indexStr = i.toString().padStart(3, '0');
                 img.src = `${IMAGES_PATH}ffout${indexStr}${IMAGE_FORMAT}`;
 
-                // We'll trust the browser to load them. 
-                // A true async await loop is slow, so we map promises.
                 img.onload = () => {
                     loadedCount++;
                     setLoadingProgress(Math.round((loadedCount / FRAME_COUNT) * 100));
                 };
-                // Store incomplete image object immediately to preserve order
                 imgArray[i - 1] = img;
             }
 
-            // Wait for all
             await Promise.all(imgArray.map(img => {
                 if (img.complete) return Promise.resolve();
                 return new Promise(resolve => {
                     img.onload = resolve;
-                    img.onerror = resolve; // Continue on error
+                    img.onerror = resolve;
                 });
             }));
 
@@ -62,12 +51,10 @@ const ScrollyTelling = () => {
         loadImages();
     }, []);
 
-    // Draw to Canvas
     useEffect(() => {
         if (!canvasRef.current || images.length === 0) return;
 
         const render = (val) => {
-            // Map 0..1 to 0..(FRAME_COUNT-1)
             const frameIndex = Math.floor(val * (FRAME_COUNT - 1));
             const safeIndex = Math.min(Math.max(frameIndex, 0), FRAME_COUNT - 1);
             const img = images[safeIndex];
@@ -76,13 +63,11 @@ const ScrollyTelling = () => {
 
             if (!img || !img.complete || img.naturalWidth === 0) return;
 
-            // Responsive Scaling: Object-fit 'contain' logic
             const dpr = window.devicePixelRatio || 1;
             canvas.width = window.innerWidth * dpr;
             canvas.height = window.innerHeight * dpr;
             ctx.scale(dpr, dpr);
 
-            // Clear with #010101
             ctx.fillStyle = "#010101";
             ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
@@ -91,7 +76,6 @@ const ScrollyTelling = () => {
                 window.innerHeight / img.naturalHeight
             );
 
-            // Draw centered
             const drawWidth = img.naturalWidth * scale;
             const drawHeight = img.naturalHeight * scale;
             const x = (window.innerWidth - drawWidth) / 2;
@@ -101,10 +85,8 @@ const ScrollyTelling = () => {
         };
 
         const unsubscribe = springScroll.on("change", render);
-        // Initial render
         render(springScroll.get());
 
-        // Handle resize
         const handleResize = () => render(springScroll.get());
         window.addEventListener('resize', handleResize);
 
@@ -114,77 +96,129 @@ const ScrollyTelling = () => {
         };
     }, [images, springScroll]);
 
-    // Animation Helpers
-    const getBeatOpacity = (start, end) => useTransform(
-        scrollYProgress,
-        [start, start + 0.1, end - 0.1, end],
-        [0, 1, 1, 0]
-    );
+    // Animation Helpers - Updated for reliability
+    // Beat A starts visible (1) then fades out. 
+    // This guarantees user sees text at top of page.
+    const beatAOpacity = useTransform(scrollYProgress, [0, 0.15, 0.2], [1, 1, 0]);
+    const beatAY = useTransform(scrollYProgress, [0, 0.2], [0, -50]);
 
-    const getBeatY = (start, end) => useTransform(
-        scrollYProgress,
-        [start, start + 0.1, end],
-        [20, 0, -20]
-    );
+    // Beat B (Right) Fades in then out
+    const beatBOpacity = useTransform(scrollYProgress, [0.20, 0.25, 0.35, 0.40], [0, 1, 1, 0]);
+    const beatBX = useTransform(scrollYProgress, [0.20, 0.40], [100, -100]);
 
-    // Beats Config
-    const beatA = { start: 0.0, end: 0.2 };
-    const beatB = { start: 0.25, end: 0.45 };
-    const beatC = { start: 0.50, end: 0.70 };
-    const beatD = { start: 0.75, end: 0.95 };
+    // Beat C (Left) Fades in then out
+    const beatCOpacity = useTransform(scrollYProgress, [0.45, 0.50, 0.60, 0.65], [0, 1, 1, 0]);
+    const beatCX = useTransform(scrollYProgress, [0.45, 0.65], [-100, 100]);
+
+    // Beat D (Persistent) Fades in and stays
+    const beatDOpacity = useTransform(scrollYProgress, [0.70, 0.80], [0, 1]);
+    const beatDY = useTransform(scrollYProgress, [0.70, 0.80], [50, 0]);
+
+    const [activeComponent, setActiveComponent] = useState(null);
 
     return (
         <section ref={containerRef} className="relative h-[400vh] bg-[#010101]">
             <div className="sticky top-0 h-screen w-full overflow-hidden" style={{ top: 0 }}>
-                <canvas ref={canvasRef} className="block w-full h-full" />
 
-                {/* Scroll Indicator */}
+                {/* Canvas Layer - Absolute Z-0 to avoid flow issues */}
+                <canvas ref={canvasRef} className="absolute inset-0 w-full h-full object-contain z-0" />
+
+                {/* Scroll Indicator - Z-20 */}
                 <motion.div
-                    className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/30 text-xs tracking-[0.2em] uppercase"
-                    style={{ opacity: useTransform(scrollYProgress, [0, 0.1], [1, 0]) }}
+                    className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/30 text-xs tracking-[0.2em] uppercase z-20 pointer-events-none"
+                    style={{ opacity: useTransform(scrollYProgress, [0, 0.05], [1, 0]) }}
                 >
                     Scroll to Explore
                 </motion.div>
 
-                {/* Overlays Container */}
-                <div className="absolute inset-0 pointer-events-none z-10">
+                {/* Overlays Container - Z-50 (High) to force on top of Canvas */}
+                <div className="absolute top-0 left-0 w-full h-full z-50 pointer-events-none">
 
-                    {/* Beat A: Hero */}
+                    {/* Beat A: Top Center (Starts Visible) */}
                     <motion.div
-                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center w-full max-w-7xl px-4"
-                        style={{ opacity: getBeatOpacity(beatA.start, beatA.end), y: getBeatY(beatA.start, beatA.end) }}
+                        className="absolute top-[15%] left-1/2 -translate-x-1/2 text-center w-full max-w-7xl px-4"
+                        style={{
+                            opacity: beatAOpacity,
+                            y: beatAY,
+                            color: '#ffffff', // Force White
+                            textShadow: '0 4px 20px rgba(0,0,0,0.5)' // consistent visibility
+                        }}
                     >
-                        <h2 className="text-7xl md:text-9xl font-bold text-white/90 tracking-tighter mb-4">PRECISION</h2>
-                        <p className="text-xl text-white/60 font-light tracking-wide">Equipment that works for any situation</p>
+                        <h2 style={{ fontSize: '6rem', lineHeight: '1', fontWeight: 'bold', marginBottom: '1rem', fontFamily: 'Impact, sans-serif' }}>PRECISION</h2>
+                        <p style={{ fontSize: '1.5rem', fontWeight: '300', opacity: 0.8 }}>Equipment that works for any situation</p>
                     </motion.div>
 
-                    {/* Beat B: Feature 1 (Left) */}
-                    <motion.div
-                        className="absolute top-1/2 left-10 md:left-20 max-w-lg text-left -translate-y-1/2"
-                        style={{ opacity: getBeatOpacity(beatB.start, beatB.end), y: getBeatY(beatB.start, beatB.end) }}
-                    >
-                        <h3 className="text-5xl md:text-7xl font-bold text-white/90 mb-2">MODULAR</h3>
-                        <p className="text-lg text-white/60">Adapt instantly. Complete system integration.</p>
-                    </motion.div>
-
-                    {/* Beat C: Feature 2 (Right) */}
+                    {/* Beat B: Right Aligned */}
                     <motion.div
                         className="absolute top-1/2 right-10 md:right-20 max-w-lg text-right -translate-y-1/2"
-                        style={{ opacity: getBeatOpacity(beatC.start, beatC.end), y: getBeatY(beatC.start, beatC.end) }}
+                        style={{
+                            opacity: beatBOpacity,
+                            x: beatBX,
+                            color: '#ffffff'
+                        }}
                     >
-                        <h3 className="text-5xl md:text-7xl font-bold text-white/90 mb-2">LIGHTWEIGHT</h3>
-                        <p className="text-lg text-white/60">Aerospace grade alloys. Zero compromise.</p>
+                        <h3 style={{ fontSize: '4rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>MODULAR</h3>
+                        <p style={{ fontSize: '1.25rem', opacity: 0.8 }}>Adapt instantly. Complete system integration.</p>
                     </motion.div>
 
-                    {/* Beat D: CTA (Center) */}
+                    {/* Beat C: Left Aligned */}
                     <motion.div
-                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center"
-                        style={{ opacity: getBeatOpacity(beatD.start, beatD.end), y: getBeatY(beatD.start, beatD.end) }}
+                        className="absolute top-1/2 left-10 md:left-20 max-w-lg text-left -translate-y-1/2"
+                        style={{
+                            opacity: beatCOpacity,
+                            x: beatCX,
+                            color: '#ffffff'
+                        }}
                     >
-                        <h2 className="text-6xl md:text-8xl font-bold text-white/90 mb-8">BUILD YOURS</h2>
-                        <a href="#contact" className="pointer-events-auto inline-block px-8 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all tracking-widest text-sm uppercase">
-                            Start Configuration
-                        </a>
+                        <h3 style={{ fontSize: '4rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>LIGHTWEIGHT</h3>
+                        <p style={{ fontSize: '1.25rem', opacity: 0.8 }}>Aerospace grade alloys. Zero compromise.</p>
+                    </motion.div>
+
+                    {/* Beat D: Persistent 3/4 Down (Interactive) */}
+                    <motion.div
+                        className="absolute top-[75%] left-0 w-full px-6 md:px-20 flex flex-col md:flex-row items-center justify-between"
+                        style={{
+                            opacity: beatDOpacity,
+                            y: beatDY,
+                            color: '#ffffff'
+                        }}
+                    >
+                        {/* CTA Text */}
+                        <div className="text-left md:w-1/2 mb-8 md:mb-0">
+                            <h2 style={{ fontSize: '5rem', fontWeight: 'bold', marginBottom: '1rem', lineHeight: '1' }}>BUILD YOURS TODAY</h2>
+                            <a href="#configurator" className="pointer-events-auto inline-block px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold tracking-widest text-sm uppercase transition-colors" style={{ textDecoration: 'none', color: 'white' }}>
+                                Start Configuration
+                            </a>
+                        </div>
+
+                        {/* Component List */}
+                        <div className="md:w-1/3 text-right flex flex-col gap-4 pointer-events-auto">
+                            {[
+                                'Upper Receiver',
+                                'Lower Receiver',
+                                'Optics',
+                                'Stock',
+                                'Accessories'
+                            ].map((item, index) => (
+                                <div
+                                    key={index}
+                                    className="group cursor-pointer"
+                                    onMouseEnter={() => setActiveComponent(item)}
+                                    onMouseLeave={() => setActiveComponent(null)}
+                                >
+                                    <div
+                                        className={`text-2xl font-bold tracking-wider transition-colors duration-300`}
+                                        style={{
+                                            fontSize: '1.5rem',
+                                            color: activeComponent === item ? '#ef4444' : 'rgba(255,255,255,0.4)',
+                                            transition: 'color 0.3s ease'
+                                        }}
+                                    >
+                                        {item}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </motion.div>
 
                 </div>
@@ -193,7 +227,7 @@ const ScrollyTelling = () => {
                 <AnimatePresence>
                     {isLoading && (
                         <motion.div
-                            className="absolute inset-0 z-50 bg-[#010101] flex flex-col items-center justify-center"
+                            className="absolute inset-0 z-[100] bg-[#010101] flex flex-col items-center justify-center"
                             exit={{ opacity: 0 }}
                         >
                             <div className="w-64 h-1 bg-white/10 overflow-hidden">
