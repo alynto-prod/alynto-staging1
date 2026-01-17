@@ -16,7 +16,7 @@ import LocationSection from './components/LocationSection';
 
 // Landing Page for the "Ground Up" rebuild
 const LandingPage = () => (
-  <div className="min-h-screen bg-[#010101]" style={{ overflowX: 'hidden' }}>
+  <div className="min-h-screen bg-[#010101]">
     <Hero />
     <AgencyCTA />
     <ScrollyTelling />
