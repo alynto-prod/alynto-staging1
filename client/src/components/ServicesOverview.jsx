@@ -49,6 +49,27 @@ const ServicesOverview = () => {
 
     return (
         <section className="w-full bg-[#010101] py-12 relative z-10 flex justify-center" style={{ marginTop: '-2px' }}>
+            {/* Inline CSS to guarantee Bento Layout regardless of Tailwind state */}
+            <style>{`
+                .bento-grid {
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                    grid-auto-rows: 350px;
+                }
+                @media (min-width: 768px) {
+                    .bento-grid {
+                        grid-template-columns: repeat(3, 1fr);
+                    }
+                    .span-col-2 {
+                        grid-column: span 2;
+                    }
+                    .span-col-1 {
+                        grid-column: span 1;
+                    }
+                }
+            `}</style>
+
             <div className="w-full max-w-7xl px-4 md:px-8">
                 <div className="text-center mb-16">
                     <Title level={2} style={{ color: '#fff', fontFamily: 'Bebas Neue', fontSize: 'clamp(3rem, 5vw, 5rem)', letterSpacing: '2px', marginBottom: '1rem' }}>
@@ -57,15 +78,15 @@ const ServicesOverview = () => {
                     <div className="w-24 h-1 bg-[#B54A3C] mx-auto opacity-80" />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[350px]">
+                <div className="bento-grid">
                     {services.map((service) => (
                         <div
                             key={service.id}
                             onClick={() => navigate(service.link)}
-                            className={`group relative rounded-3xl overflow-hidden cursor-pointer ${service.colSpan} transition-all duration-500 hover:scale-[1.01] hover:z-20`}
+                            className={`group relative rounded-3xl overflow-hidden cursor-pointer ${service.colSpan ? (service.colSpan.includes('span-2') ? 'span-col-2' : 'span-col-1') : 'span-col-1'} transition-all duration-500 hover:scale-[1.01] hover:z-20`}
                             style={{
                                 border: `1px solid ${service.accent}`,
-                                boxShadow: `0 0 40px ${service.accent}10`, // Subtle colored glow
+                                boxShadow: `0 0 40px ${service.accent}10`,
                                 background: `linear-gradient(145deg, rgba(20,20,20,0.8) 0%, rgba(5,5,5,0.9) 100%)`
                             }}
                         >
@@ -77,10 +98,10 @@ const ServicesOverview = () => {
 
                             {/* Background Image Layer (Placeholder) */}
                             <div className="absolute inset-0 z-0">
-                                <div className="absolute inset-0 bg-[#121212]" /> {/* Fallback color */}
+                                <div className="absolute inset-0 bg-[#121212]" />
                                 <div className="absolute inset-0 opacity-30 group-hover:opacity-40 transition-opacity duration-700 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay" />
 
-                                {/* Typed Service ID as Graphic */}
+                                {/* Graphic */}
                                 <div className="absolute inset-0 flex items-center justify-center opacity-10 group-hover:opacity-20 transition-opacity duration-500 select-none">
                                     <span
                                         className="font-bebas text-[10rem] leading-none"
@@ -101,13 +122,18 @@ const ServicesOverview = () => {
                             <div className="absolute inset-0 z-30 p-8 flex flex-col justify-end">
                                 <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
                                     <h3
-                                        className="font-bebas text-4xl mb-3 tracking-wider text-white"
-                                        style={{ textShadow: '0 4px 12px rgba(0,0,0,0.8)' }}
+                                        className="font-bebas text-4xl mb-3 tracking-wider"
+                                        style={{ textShadow: '0 4px 12px rgba(0,0,0,0.8)', color: '#FFFFFF' }}
                                     >
                                         {service.title}
                                     </h3>
-                                    <p className="text-gray-300 text-lg font-source font-light leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 max-w-lg">
-                                        {service.description}
+                                    <p
+                                        className="font-source font-light leading-relaxed max-w-lg"
+                                        style={{ color: '#D1D5DB', opacity: 0, transition: 'opacity 0.5s', transitionDelay: '0.1s' }}
+                                    >
+                                        <span className="not-italic group-hover:opacity-100 block">
+                                            {service.description}
+                                        </span>
                                     </p>
                                 </div>
 
@@ -120,7 +146,7 @@ const ServicesOverview = () => {
                                         color: service.accent
                                     }}
                                 >
-                                    <ArrowRight size={22} />
+                                    <ArrowRight size={22} color={service.accent} />
                                 </div>
                             </div>
                         </div>
