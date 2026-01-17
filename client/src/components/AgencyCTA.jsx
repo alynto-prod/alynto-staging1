@@ -17,7 +17,7 @@ const AgencyCTA = () => {
                 {/* Background Element */}
                 <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-armory-red/10 to-transparent pointer-events-none" />
 
-                <div className="px-8 py-12 relative z-10">
+                <div className="relative z-10" style={{ padding: '5rem' }}>
                     <Row gutter={[48, 48]} align="middle">
                         <Col xs={24} md={14}>
                             <div className="flex items-center gap-3 mb-4">
