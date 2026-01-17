@@ -74,7 +74,7 @@ const ScrollyTelling = () => {
             const scale = Math.min(
                 window.innerWidth / img.naturalWidth,
                 window.innerHeight / img.naturalHeight
-            );
+            ) * 0.8; // 80% Scale relative to screen
 
             const drawWidth = img.naturalWidth * scale;
             const drawHeight = img.naturalHeight * scale;
@@ -96,23 +96,23 @@ const ScrollyTelling = () => {
         };
     }, [images, springScroll]);
 
-    // Animation Helpers - Updated for reliability
-    // Beat A starts visible (1) then fades out. 
-    // This guarantees user sees text at top of page.
+    // Animation Helpers - Updated for reliability and user requests
+    // Beat A: Precision (Top) - Moved higher
     const beatAOpacity = useTransform(scrollYProgress, [0, 0.15, 0.2], [1, 1, 0]);
     const beatAY = useTransform(scrollYProgress, [0, 0.2], [0, -50]);
 
-    // Beat B (Right) Fades in then out
-    const beatBOpacity = useTransform(scrollYProgress, [0.20, 0.25, 0.35, 0.40], [0, 1, 1, 0]);
-    const beatBX = useTransform(scrollYProgress, [0.20, 0.40], [100, -100]);
+    // Beat B: Modular (Right) - Quick Fade In, No Motion
+    // Duration 0.20 -> 5% is 0.01. Let's do 0.02 for smoothness.
+    const beatBOpacity = useTransform(scrollYProgress, [0.20, 0.22, 0.38, 0.40], [0, 1, 1, 0]);
+    // const beatBX = useTransform(scrollYProgress, [0.20, 0.40], [100, -100]); // Removed
 
-    // Beat C (Left) Fades in then out
-    const beatCOpacity = useTransform(scrollYProgress, [0.45, 0.50, 0.60, 0.65], [0, 1, 1, 0]);
-    const beatCX = useTransform(scrollYProgress, [0.45, 0.65], [-100, 100]);
+    // Beat C: Lightweight (Left) - Quick Fade In, No Motion
+    const beatCOpacity = useTransform(scrollYProgress, [0.45, 0.47, 0.63, 0.65], [0, 1, 1, 0]);
+    // const beatCX = useTransform(scrollYProgress, [0.45, 0.65], [-100, 100]); // Removed
 
-    // Beat D (Persistent) Fades in and stays
-    const beatDOpacity = useTransform(scrollYProgress, [0.70, 0.80], [0, 1]);
-    const beatDY = useTransform(scrollYProgress, [0.70, 0.80], [50, 0]);
+    // Beat D: Persistent (Bottom + List)
+    const beatDOpacity = useTransform(scrollYProgress, [0.70, 0.75], [0, 1]); // Fade in 
+    const beatDY = useTransform(scrollYProgress, [0.70, 0.75], [50, 0]); // Slide up slightly (optional, but nice)
 
     const [activeComponent, setActiveComponent] = useState(null);
 
@@ -120,7 +120,7 @@ const ScrollyTelling = () => {
         <section ref={containerRef} className="relative h-[400vh] bg-[#010101]">
             <div className="sticky top-0 h-screen w-full overflow-hidden" style={{ top: 0 }}>
 
-                {/* Canvas Layer - Absolute Z-0 to avoid flow issues */}
+                {/* Canvas Layer - Absolute Z-0 */}
                 <canvas ref={canvasRef} className="absolute inset-0 w-full h-full object-contain z-0" />
 
                 {/* Scroll Indicator - Z-20 */}
@@ -131,29 +131,29 @@ const ScrollyTelling = () => {
                     Scroll to Explore
                 </motion.div>
 
-                {/* Overlays Container - Z-50 (High) to force on top of Canvas */}
+                {/* Overlays Container - Z-50 */}
                 <div className="absolute top-0 left-0 w-full h-full z-50 pointer-events-none">
 
                     {/* Beat A: Top Center (Starts Visible) */}
                     <motion.div
-                        className="absolute top-[15%] left-1/2 -translate-x-1/2 text-center w-full max-w-7xl px-4"
+                        className="absolute top-[8%] left-1/2 -translate-x-1/2 text-center w-full max-w-7xl px-4"
                         style={{
                             opacity: beatAOpacity,
                             y: beatAY,
-                            color: '#ffffff', // Force White
-                            textShadow: '0 4px 20px rgba(0,0,0,0.5)' // consistent visibility
+                            color: '#ffffff',
+                            textShadow: '0 4px 20px rgba(0,0,0,0.5)'
                         }}
                     >
                         <h2 style={{ fontSize: '6rem', lineHeight: '1', fontWeight: 'bold', marginBottom: '1rem', fontFamily: 'Impact, sans-serif' }}>PRECISION</h2>
                         <p style={{ fontSize: '1.5rem', fontWeight: '300', opacity: 0.8 }}>Equipment that works for any situation</p>
                     </motion.div>
 
-                    {/* Beat B: Right Aligned */}
+                    {/* Beat B: Modular (Right) */}
                     <motion.div
                         className="absolute top-1/2 right-10 md:right-20 max-w-lg text-right -translate-y-1/2"
                         style={{
                             opacity: beatBOpacity,
-                            x: beatBX,
+                            // x: beatBX, // Removed
                             color: '#ffffff'
                         }}
                     >
@@ -161,12 +161,12 @@ const ScrollyTelling = () => {
                         <p style={{ fontSize: '1.25rem', opacity: 0.8 }}>Adapt instantly. Complete system integration.</p>
                     </motion.div>
 
-                    {/* Beat C: Left Aligned */}
+                    {/* Beat C: Lightweight (Left) */}
                     <motion.div
                         className="absolute top-1/2 left-10 md:left-20 max-w-lg text-left -translate-y-1/2"
                         style={{
                             opacity: beatCOpacity,
-                            x: beatCX,
+                            // x: beatCX, // Removed
                             color: '#ffffff'
                         }}
                     >
@@ -174,51 +174,58 @@ const ScrollyTelling = () => {
                         <p style={{ fontSize: '1.25rem', opacity: 0.8 }}>Aerospace grade alloys. Zero compromise.</p>
                     </motion.div>
 
-                    {/* Beat D: Persistent 3/4 Down (Interactive) */}
+                    {/* Beat D: Persistent 3/4 Down (Text) + Centered List (Right) */}
+                    {/* Text Group */}
                     <motion.div
-                        className="absolute top-[75%] left-0 w-full px-6 md:px-20 flex flex-col md:flex-row items-center justify-between"
+                        className="absolute top-[75%] left-0 w-full px-6 md:px-20 text-center md:text-left"
                         style={{
                             opacity: beatDOpacity,
                             y: beatDY,
                             color: '#ffffff'
                         }}
                     >
-                        {/* CTA Text */}
-                        <div className="text-left md:w-1/2 mb-8 md:mb-0">
+                        <div className="md:w-1/2">
                             <h2 style={{ fontSize: '5rem', fontWeight: 'bold', marginBottom: '1rem', lineHeight: '1' }}>BUILD YOURS TODAY</h2>
                             <a href="#configurator" className="pointer-events-auto inline-block px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold tracking-widest text-sm uppercase transition-colors" style={{ textDecoration: 'none', color: 'white' }}>
                                 Start Configuration
                             </a>
                         </div>
+                    </motion.div>
 
-                        {/* Component List */}
-                        <div className="md:w-1/3 text-right flex flex-col gap-4 pointer-events-auto">
-                            {[
-                                'Upper Receiver',
-                                'Lower Receiver',
-                                'Optics',
-                                'Stock',
-                                'Accessories'
-                            ].map((item, index) => (
+                    {/* List Group - Vertically Centered on Right */}
+                    <motion.div
+                        className="absolute top-1/2 right-10 md:right-20 -translate-y-1/2 flex flex-col gap-4 text-right pointer-events-auto"
+                        style={{
+                            opacity: beatDOpacity,
+                            // No Y transform here to keep it perfectly centered
+                            color: '#ffffff'
+                        }}
+                    >
+                        {[
+                            'Upper Receiver',
+                            'Lower Receiver',
+                            'Optics',
+                            'Stock',
+                            'Accessories'
+                        ].map((item, index) => (
+                            <div
+                                key={index}
+                                className="group cursor-pointer"
+                                onMouseEnter={() => setActiveComponent(item)}
+                                onMouseLeave={() => setActiveComponent(null)}
+                            >
                                 <div
-                                    key={index}
-                                    className="group cursor-pointer"
-                                    onMouseEnter={() => setActiveComponent(item)}
-                                    onMouseLeave={() => setActiveComponent(null)}
+                                    className={`font-bold tracking-wider transition-colors duration-300`}
+                                    style={{
+                                        fontSize: '1.5rem',
+                                        color: activeComponent === item ? '#ef4444' : 'rgba(255,255,255,0.4)',
+                                        transition: 'color 0.3s ease'
+                                    }}
                                 >
-                                    <div
-                                        className={`text-2xl font-bold tracking-wider transition-colors duration-300`}
-                                        style={{
-                                            fontSize: '1.5rem',
-                                            color: activeComponent === item ? '#ef4444' : 'rgba(255,255,255,0.4)',
-                                            transition: 'color 0.3s ease'
-                                        }}
-                                    >
-                                        {item}
-                                    </div>
+                                    {item}
                                 </div>
-                            ))}
-                        </div>
+                            </div>
+                        ))}
                     </motion.div>
 
                 </div>
