@@ -258,8 +258,8 @@ const ScrollyTelling = () => {
                             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center z-10 w-full max-w-4xl px-6 pointer-events-none"
                             style={{ opacity: beatAOpacity, y: beatAY }}
                         >
-                            <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-4">PRECISION</h1>
-                            <p className="text-xl md:text-2xl text-white/60 font-light tracking-wide">Engineered for the absolute edge.</p>
+                            <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-4" style={{ color: '#FFFFFF' }}>PRECISION</h1>
+                            <p className="text-xl md:text-2xl text-white/60 font-light tracking-wide" style={{ color: 'rgba(255,255,255,0.6)' }}>Engineered for the absolute edge.</p>
                         </motion.div>
 
                         <motion.div
@@ -267,9 +267,9 @@ const ScrollyTelling = () => {
                             style={{ opacity: beatBOpacity, y: beatBY }}
                         >
                             <div className="md:w-1/3">
-                                <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 text-left">Modular Design</h2>
-                                <p className="text-lg text-white/60 text-left">Adapt to any mission requirement instantly.</p>
-                                <div className="mt-4 border-l-2 border-red-600 pl-4 text-sm text-white/40 text-left">
+                                <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 text-left" style={{ color: '#FFFFFF' }}>Modular Design</h2>
+                                <p className="text-lg text-white/60 text-left" style={{ color: 'rgba(255,255,255,0.6)' }}>Adapt to any mission requirement instantly.</p>
+                                <div className="mt-4 border-l-2 border-red-600 pl-4 text-sm text-white/40 text-left" style={{ color: 'rgba(255,255,255,0.4)', borderColor: '#DC2626' }}>
                                     SYSTEM ALPHA
                                 </div>
                             </div>
@@ -280,9 +280,9 @@ const ScrollyTelling = () => {
                             style={{ opacity: beatCOpacity, y: beatCY }}
                         >
                             <div className="md:w-1/3 text-right">
-                                <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">Composite Alloy</h2>
-                                <p className="text-lg text-white/60">Featherweight durability that defies physics.</p>
-                                <div className="mt-4 border-r-2 border-red-600 pr-4 text-sm text-white/40 inline-block">
+                                <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-2" style={{ color: '#FFFFFF' }}>Composite Alloy</h2>
+                                <p className="text-lg text-white/60" style={{ color: 'rgba(255,255,255,0.6)' }}>Featherweight durability that defies physics.</p>
+                                <div className="mt-4 border-r-2 border-red-600 pr-4 text-sm text-white/40 inline-block" style={{ color: 'rgba(255,255,255,0.4)', borderColor: '#DC2626' }}>
                                     GRADE V TITANIUM
                                 </div>
                             </div>
@@ -297,8 +297,8 @@ const ScrollyTelling = () => {
 
                                 {/* Info / Header */}
                                 <div className="pointer-events-auto">
-                                    <h2 className="text-5xl font-bold tracking-tighter text-white mb-4 text-shadow-lg">PLATFORM SPECS</h2>
-                                    <p className="text-white/60 text-sm tracking-widest uppercase max-w-xs leading-relaxed">
+                                    <h2 className="text-5xl font-bold tracking-tighter text-white mb-4 text-shadow-lg" style={{ color: '#FFFFFF' }}>PLATFORM SPECS</h2>
+                                    <p className="text-white/60 text-sm tracking-widest uppercase max-w-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.6)' }}>
                                         Hover over the components to inspect technical details and configuration options.
                                     </p>
                                 </div>
@@ -319,7 +319,10 @@ const ScrollyTelling = () => {
                                             onMouseEnter={() => setActiveComponent(item)}
                                             onMouseLeave={() => setActiveComponent(null)}
                                         >
-                                            <div className={`text-2xl font-bold tracking-wider transition-colors duration-300 ${activeComponent?.id === item.id ? 'text-red-500' : 'text-white/80 hover:text-white'}`}>
+                                            <div
+                                                className={`text-2xl font-bold tracking-wider transition-colors duration-300 ${activeComponent?.id === item.id ? 'text-red-500' : 'text-white/80 hover:text-white'}`}
+                                                style={{ color: activeComponent?.id === item.id ? '#EF4444' : '#FFFFFF' }}
+                                            >
                                                 {item.label}
                                             </div>
                                         </div>
