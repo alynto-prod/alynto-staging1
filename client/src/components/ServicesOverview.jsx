@@ -48,7 +48,7 @@ const ServicesOverview = () => {
     const navigate = useNavigate();
 
     return (
-        <section className="w-full bg-[#010101] py-12 relative z-10 flex justify-center" style={{ marginTop: '-2px' }}>
+        <section className="w-full bg-[#010101] relative z-10 flex justify-center" style={{ paddingTop: '20vh', paddingBottom: '20vh' }}>
             {/* Inline CSS to guarantee Bento Layout regardless of Tailwind state */}
             <style>{`
                 .bento-grid {
@@ -70,8 +70,8 @@ const ServicesOverview = () => {
                 }
             `}</style>
 
-            <div className="w-full max-w-7xl px-4 md:px-8">
-                <div className="text-center mb-16">
+            <div className="w-full max-w-[90rem] px-4 md:px-8" style={{ paddingLeft: '8vw', paddingRight: '8vw' }}>
+                <div className="text-center mb-24">
                     <Title level={2} style={{ color: '#fff', fontFamily: 'Bebas Neue', fontSize: 'clamp(3rem, 5vw, 5rem)', letterSpacing: '2px', marginBottom: '1rem' }}>
                         Our Services
                     </Title>
