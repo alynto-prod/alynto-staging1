@@ -9,12 +9,12 @@ import AgencyPricing from './components/AgencyPricing';
 const { Footer } = Layout;
 
 import Hero from './components/Hero';
-import ScrollyTelling from './components/ScrollyTelling';
 import AgencyCTA from './components/AgencyCTA';
+import ScrollyTelling from './components/ScrollyTelling';
 
 // Landing Page for the "Ground Up" rebuild
 const LandingPage = () => (
-  <div className="min-h-screen bg-[#1A1A1A]">
+  <div className="min-h-screen bg-[#1A1A1A]" style={{ overflow: 'visible' }}>
     <Hero />
     <AgencyCTA />
     <ScrollyTelling />
@@ -35,7 +35,7 @@ function App() {
         },
       }}
     >
-      <Layout className="min-h-screen bg-[#1A1A1A] p-0 m-0">
+      <Layout className="min-h-screen bg-[#1A1A1A] p-0 m-0" style={{ overflow: 'visible' }}>
         <Router>
           <AgeGate />
           <Navbar />
