@@ -41,7 +41,7 @@ const ServicesOverview = () => {
 
     return (
         <section className="bg-[#010101] py-16 relative z-10" style={{ marginTop: '-2px' }}>
-            <div className="max-w-7xl mx-auto px-6 md:px-12">
+            <div className="max-w-5xl mx-auto px-6 md:px-12">
                 <div className="text-center mb-16">
                     <Title level={2} style={{ color: '#fff', fontFamily: 'Bebas Neue', fontSize: 'clamp(3rem, 5vw, 5rem)', letterSpacing: '2px', marginBottom: '1rem' }}>
                         Our Services
@@ -77,14 +77,6 @@ const ServicesOverview = () => {
                                             {service.title}
                                         </Title>
                                     </div>
-                                    <Button
-                                        type="primary"
-                                        onClick={() => navigate(service.link)}
-                                        className="h-10 px-6 bg-transparent border border-white/20 text-white hover:!bg-[#B54A3C] hover:!border-[#B54A3C] uppercase tracking-widest flex items-center gap-2 w-fit transition-all duration-300"
-                                    >
-                                        Details
-                                        <ArrowRight size={16} />
-                                    </Button>
                                 </div>
 
                                 <Paragraph className="text-gray-400 text-lg leading-relaxed max-w-3xl mb-0">
