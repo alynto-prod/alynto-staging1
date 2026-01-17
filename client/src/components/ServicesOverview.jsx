@@ -40,7 +40,7 @@ const ServicesOverview = () => {
     const navigate = useNavigate();
 
     return (
-        <section className="bg-[#010101] py-16 relative z-10">
+        <section className="bg-[#010101] py-16 relative z-10" style={{ marginTop: '-2px' }}>
             <div className="max-w-7xl mx-auto px-6 md:px-12">
                 <div className="text-center mb-16">
                     <Title level={2} style={{ color: '#fff', fontFamily: 'Bebas Neue', fontSize: 'clamp(3rem, 5vw, 5rem)', letterSpacing: '2px', marginBottom: '1rem' }}>

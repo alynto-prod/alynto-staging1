@@ -15,7 +15,7 @@ import ServicesOverview from './components/ServicesOverview';
 
 // Landing Page for the "Ground Up" rebuild
 const LandingPage = () => (
-  <div className="min-h-screen bg-[#1A1A1A]" style={{ overflow: 'visible' }}>
+  <div className="min-h-screen bg-[#010101]" style={{ overflow: 'visible' }}>
     <Hero />
     <AgencyCTA />
     <ScrollyTelling />
