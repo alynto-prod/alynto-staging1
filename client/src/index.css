@@ -8,7 +8,6 @@ body {
     padding: 0;
     background-color: #0A0A0A;
     width: 100%;
-    /* overflow-x: hidden; REMOVED to fix sticky scroll */
 }
 
 #root {

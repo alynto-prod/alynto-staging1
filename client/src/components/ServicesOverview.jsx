@@ -1,4 +1,8 @@
 import React from 'react';
+import customBuildsImg from '../assets/custom-builds.jpg';
+import fflTransfersImg from '../assets/ffl-transfers.gif';
+import gunsmithingImg from '../assets/gunsmithing.jpg';
+import nfaItemsImg from '../assets/nfa-items.png';
 import { Button, Typography, Row, Col } from 'antd';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +15,7 @@ const services = [
         id: 'custom',
         title: 'Custom Builds',
         description: 'Precision long-range rifles and tactical carbines.',
-        image: '/src/assets/service_custom.jpg',
+        image: customBuildsImg,
         link: '/services/custom-builds',
         colSpan: 'md:col-span-2',
         accent: '#E5E7EB'
@@ -20,28 +24,39 @@ const services = [
         id: 'ffl',
         title: 'FFL Transfers',
         description: 'Secure and compliant transfers.',
-        image: '/src/assets/service_ffl.jpg',
+        image: fflTransfersImg,
         link: '/services/ffl-transfers',
         colSpan: 'md:col-span-1',
         accent: '#B54A3C'
     },
     {
-        id: 'gunsmithing',
-        title: 'Gunsmithing',
-        description: 'Repair, maintenance, and modification.',
-        image: '/src/assets/service_gunsmith.jpg',
-        link: '/services/gunsmithing',
-        colSpan: 'md:col-span-1',
-        accent: '#64748B'
-    },
-    {
         id: 'nfa',
         title: 'NFA Items',
         description: 'Expert guidance for suppressors and SBRs.',
-        image: '/src/assets/service_nfa.jpg',
+        image: nfaItemsImg,
         link: '/services/nfa-items',
+        colSpan: 'md:col-span-1',
+        accent: '#D97706',
+        objectPosition: 'center 20%'
+    },
+    {
+        id: 'shipping',
+        title: 'Firearm Shipping',
+        description: 'Safe, legal, and hassle-free shipping services.',
+        image: fflTransfersImg, // Using FFL image as placeholder
+        link: '/services/shipping',
         colSpan: 'md:col-span-2',
-        accent: '#D97706'
+        accent: '#4B5563'
+    },
+    {
+        id: 'gunsmithing',
+        title: 'Gunsmithing',
+        description: 'Repair, maintenance, and modification.',
+        image: gunsmithingImg,
+        link: '/services/gunsmithing',
+        colSpan: 'md:col-span-3',
+        accent: '#64748B',
+        objectPosition: 'center 20%'
     }
 ];
 
@@ -49,7 +64,7 @@ const ServicesOverview = () => {
     const navigate = useNavigate();
 
     return (
-        <section className="w-full bg-[#010101] relative z-10 flex justify-center" style={{ paddingTop: '20vh', paddingBottom: '20vh' }}>
+        <section className="w-full bg-[#010101] relative z-10 flex justify-center overflow-hidden" style={{ paddingTop: '20vh', paddingBottom: '20vh' }}>
             {/* Inline CSS to guarantee Bento Layout regardless of Tailwind state */}
             <style>{`
                 .bento-grid {
@@ -61,6 +76,9 @@ const ServicesOverview = () => {
                 @media (min-width: 768px) {
                     .bento-grid {
                         grid-template-columns: repeat(3, 1fr);
+                    }
+                    .span-col-3 {
+                        grid-column: span 3;
                     }
                     .span-col-2 {
                         grid-column: span 2;
@@ -90,11 +108,11 @@ const ServicesOverview = () => {
                         <div
                             key={service.id}
                             onClick={() => navigate(service.link)}
-                            className={`group relative rounded-3xl overflow-hidden cursor-pointer ${service.colSpan ? (service.colSpan.includes('span-2') ? 'span-col-2' : 'span-col-1') : 'span-col-1'} transition-all duration-500 hover:scale-[1.01] hover:z-20`}
+                            className={`group relative rounded-3xl overflow-hidden cursor-pointer ${service.colSpan ? (service.colSpan.includes('span-3') ? 'span-col-3' : (service.colSpan.includes('span-2') ? 'span-col-2' : 'span-col-1')) : 'span-col-1'} transition-all duration-500 hover:scale-[1.01] hover:z-20`}
                             style={{
                                 border: `1px solid ${service.accent}`,
                                 boxShadow: `0 0 40px ${service.accent}10`,
-                                background: `linear-gradient(145deg, rgba(20,20,20,0.8) 0%, rgba(5,5,5,0.9) 100%)`
+                                background: `linear-gradient(145deg, rgba(20,20,20,0.4) 0%, rgba(5,5,5,0.6) 100%)`
                             }}
                         >
                             {/* Accent Glow Spot */}
@@ -103,34 +121,38 @@ const ServicesOverview = () => {
                                 style={{ backgroundColor: service.accent }}
                             />
 
-                            {/* Background Image Layer (Placeholder) */}
-                            <div className="absolute inset-0 z-0">
-                                <div className="absolute inset-0 bg-[#121212]" />
-                                <div className="absolute inset-0 opacity-30 group-hover:opacity-40 transition-opacity duration-700 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay" />
+                            {/* Main Image */}
+                            <img
+                                src={service.image}
+                                alt={service.title}
+                                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 z-0"
+                                style={{ opacity: 1, filter: 'brightness(0.4)', objectPosition: service.objectPosition || 'center' }}
+                            />
 
-                                {/* Graphic */}
-                                <div className="absolute inset-0 flex items-center justify-center opacity-10 group-hover:opacity-20 transition-opacity duration-500 select-none">
-                                    <span
-                                        className="font-bebas text-[10rem] leading-none"
-                                        style={{ color: service.accent }}
-                                    >
-                                        {service.id.substring(0, 2).toUpperCase()}
-                                    </span>
-                                </div>
+                            {/* Graphic */}
+                            <div className="absolute inset-0 flex items-center justify-center opacity-10 group-hover:opacity-20 transition-opacity duration-500 select-none pointer-events-none z-0">
+                                <span
+                                    className="font-bebas text-[10rem] leading-none"
+                                    style={{ color: service.accent }}
+                                >
+                                    {service.id.substring(0, 2).toUpperCase()}
+                                </span>
                             </div>
 
+
+
                             {/* Liquid Glass Overlay */}
-                            <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-90 backdrop-blur-[1px]" />
+                            <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 backdrop-blur-[0px] pointer-events-none" />
 
                             {/* Glass Shine */}
                             <div className="absolute inset-0 z-20 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                            {/* Content */}
-                            <div className="absolute inset-0 z-30 p-8 flex flex-col justify-end">
+                            {/* Content Overlay */}
+                            <div className="absolute inset-0 z-30 p-8 flex flex-col justify-end bg-gradient-to-t from-black via-black/80 to-transparent">
                                 <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
                                     <h3
-                                        className="font-bebas text-4xl mb-3 tracking-wider"
-                                        style={{ textShadow: '0 4px 12px rgba(0,0,0,0.8)', color: '#FFFFFF' }}
+                                        className="font-bebas mb-3 tracking-wider leading-[0.9] break-words hyphens-auto"
+                                        style={{ fontSize: 'clamp(2rem, 3vw, 3.5rem)', paddingRight: '1rem', textShadow: '0 4px 12px rgba(0,0,0,0.8)', color: '#FFFFFF' }}
                                     >
                                         {service.title}
                                     </h3>
@@ -160,7 +182,7 @@ const ServicesOverview = () => {
                     ))}
                 </div>
             </div>
-        </section>
+        </section >
     );
 };
 
