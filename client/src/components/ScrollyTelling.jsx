@@ -1,9 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useScroll, useTransform, useSpring, motion, AnimatePresence } from 'framer-motion';
 
-const FRAME_COUNT = 192;
-const IMAGES_PATH = `${import.meta.env.BASE_URL}rotating-gun/`;
-const IMAGE_FORMAT = '.gif';
+// Import all GIF textures eagerly to ensure they are bundled
+const TEXTURE_MODULES = import.meta.glob('../assets/rotating-gun/*.gif', { eager: true });
+
+// Extract the URL strings and sort them by filename index to ensure correct animation order
+// The glob keys are like: "../assets/rotating-gun/ffout001.gif"
+const LOADED_IMAGES = Object.keys(TEXTURE_MODULES)
+    .sort()
+    .map(key => TEXTURE_MODULES[key].default);
+
+// Total frame count is determined by how many files we found
+const FRAME_COUNT = LOADED_IMAGES.length;
 
 const ScrollyTelling = () => {
     const containerRef = useRef(null);
@@ -21,34 +29,38 @@ const ScrollyTelling = () => {
 
     useEffect(() => {
         let loadedCount = 0;
-        const imgArray = [];
+        const imgArray = new Array(FRAME_COUNT);
 
         const loadImages = async () => {
-            for (let i = 1; i <= FRAME_COUNT; i++) {
-                const img = new Image();
-                const indexStr = i.toString().padStart(3, '0');
-                img.src = `${IMAGES_PATH}ffout${indexStr}${IMAGE_FORMAT}`;
-
-                img.onload = () => {
-                    loadedCount++;
-                    setLoadingProgress(Math.round((loadedCount / FRAME_COUNT) * 100));
-                };
-                imgArray[i - 1] = img;
-            }
-
-            await Promise.all(imgArray.map(img => {
-                if (img.complete) return Promise.resolve();
-                return new Promise(resolve => {
-                    img.onload = resolve;
-                    img.onerror = resolve;
+            // Preload all valid image URLs we got from the glob import
+            const promises = LOADED_IMAGES.map((src, i) => {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.src = src;
+                    img.onload = () => {
+                        loadedCount++;
+                        setLoadingProgress(Math.round((loadedCount / FRAME_COUNT) * 100));
+                        resolve(img);
+                    };
+                    img.onerror = () => {
+                        // If one fails, just resolve with null so we don't hang
+                        resolve(null);
+                    }
+                    imgArray[i] = img;
                 });
-            }));
+            });
+
+            await Promise.all(promises);
 
             setImages(imgArray);
             setIsLoading(false);
         };
 
-        loadImages();
+        if (FRAME_COUNT > 0) {
+            loadImages();
+        } else {
+            setIsLoading(false);
+        }
     }, []);
 
     useEffect(() => {
