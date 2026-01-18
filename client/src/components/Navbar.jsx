@@ -66,7 +66,7 @@ const Navbar = () => {
             {/* Desktop Menu - Custom Links - FORCED FLEX */}
             <nav
                 className="hidden md:flex items-center space-x-8"
-                style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '2rem' }}
+                style={{ flexDirection: 'row', alignItems: 'center', gap: '2rem' }}
             >
                 {menuItems.map((item) => (
                     <button
@@ -82,36 +82,38 @@ const Navbar = () => {
 
             {/* Icons & Actions - FORCED FLEX */}
             <div
-                className="flex items-center gap-6"
-                style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '1.5rem' }}
+                className="flex items-center gap-4 md:gap-6"
+                style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
             >
-                {/* CTA Button */}
-                <div className="hidden md:block">
-                    <button
-                        onClick={() => navigate('/contact')}
-                        className="bg-white hover:bg-white/90 text-black rounded-full h-12 px-6 font-source font-bold tracking-wide text-base flex items-center gap-3 transition-colors cursor-pointer border-none"
-                    >
-                        Get in Touch
-                        <div className="bg-armory-red text-white rounded-full p-1 flex items-center justify-center w-6 h-6" style={{ backgroundColor: '#B54A3C', color: 'white' }}>
-                            <ArrowRight size={14} strokeWidth={3} />
-                        </div>
-                    </button>
-                </div>
-
-                <div
-                    className="text-white hover:text-armory-red transition-colors cursor-pointer"
-                    style={{ color: '#FFFFFF' }}
-                >
-                    <ShoppingCart size={24} />
-                </div>
-
-                {/* Mobile Menu Button */}
+                {/* Mobile Menu Button - First on Mobile */}
                 <div
                     className="md:hidden text-white cursor-pointer"
                     onClick={showDrawer}
                     style={{ color: '#FFFFFF' }}
                 >
-                    <MenuIcon size={24} />
+                    <MenuIcon size={28} />
+                </div>
+
+                {/* CTA Button - Visible on Mobile now */}
+                <div className="block">
+                    <button
+                        onClick={() => navigate('/contact')}
+                        className="bg-white hover:bg-white/90 text-black rounded-full h-10 md:h-12 px-4 md:px-6 font-source font-bold tracking-wide text-sm md:text-base flex items-center gap-2 md:gap-3 transition-colors cursor-pointer border-none"
+                    >
+                        <span className="hidden md:inline">Get in Touch</span>
+                        <span className="md:hidden">Contact</span>
+                        <div className="bg-armory-red text-white rounded-full p-1 flex items-center justify-center w-5 h-5 md:w-6 md:h-6" style={{ backgroundColor: '#B54A3C', color: 'white' }}>
+                            <ArrowRight size={12} md:size={14} strokeWidth={3} />
+                        </div>
+                    </button>
+                </div>
+
+                {/* Shopping Cart - Hidden on Mobile */}
+                <div
+                    className="hidden md:block text-white hover:text-armory-red transition-colors cursor-pointer"
+                    style={{ color: '#FFFFFF' }}
+                >
+                    <ShoppingCart size={24} />
                 </div>
             </div>
 
