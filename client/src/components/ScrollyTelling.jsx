@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useScroll, useTransform, useSpring, motion, AnimatePresence } from 'framer-motion';
 
 const FRAME_COUNT = 192;
-const IMAGES_PATH = '/rotating-gun/';
+const IMAGES_PATH = `${import.meta.env.BASE_URL}rotating-gun/`;
 const IMAGE_FORMAT = '.gif';
 
 const ScrollyTelling = () => {
