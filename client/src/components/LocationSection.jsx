@@ -7,28 +7,80 @@ const { Title, Paragraph } = Typography;
 
 const LocationSection = () => {
     return (
-        <section className="relative w-full h-[600px] bg-[#010101] overflow-hidden">
-            {/* Dark Filter Overlay for Map */}
-            <div className="absolute inset-0 bg-[#010101]/20 pointer-events-none z-10 mix-blend-multiply" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-black/80 pointer-events-none z-10" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#010101] via-transparent to-[#010101] pointer-events-none z-10" />
+        <section className="location-container bg-[#010101] overflow-hidden">
+            <style>{`
+                .location-container {
+                    width: 100%;
+                    position: relative;
+                    display: flex;
+                    flex-direction: column; /* Mobile: Stacked */
+                }
+                .location-map {
+                    width: 100%;
+                    height: 300px; /* Mobile: Fixed height map */
+                    position: relative;
+                    z-index: 0;
+                }
+                .location-card-wrapper {
+                    position: relative;
+                    z-index: 20;
+                    width: 100%;
+                    padding: 1rem;
+                    background: #010101; /* Mobile: Solid background to merge */
+                }
+                .location-card-inner {
+                    pointer-events: auto; /* Fix interactions */
+                }
+                @media (min-width: 768px) {
+                    .location-container {
+                        height: 600px;
+                        display: block;
+                    }
+                    .location-map {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        height: 100%;
+                    }
+                    .location-card-wrapper {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        padding-left: 6rem; /* md:px-24 equiv approx */
+                        padding-right: 6rem;
+                        background: transparent;
+                        pointer-events: none;
+                    }
+                }
+            `}</style>
 
-            {/* Google Map Iframe */}
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d102985.39002573229!2d-86.58197771780826!3d36.20819728863695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88643f820c75c875%3A0x6b2837375a06587c!2sMt.%20Juliet%2C%20TN!5e0!3m2!1sen!2sus!4v1710000000000!5m2!1sen!2sus"
-                width="100%"
-                height="100%"
-                style={{ border: 0, filter: 'grayscale(100%) invert(90%) contrast(85%)' }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-full object-cover opacity-60"
-            />
+            {/* Google Map Iframe Container */}
+            <div className="location-map">
+                {/* Dark Filter Overlay for Map (Desktop mainly, but ok on mobile too) */}
+                <div className="absolute inset-0 bg-[#010101]/20 pointer-events-none z-10 mix-blend-multiply" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-black/80 pointer-events-none z-10" />
+
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d102985.39002573229!2d-86.58197771780826!3d36.20819728863695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88643f820c75c875%3A0x6b2837375a06587c!2sMt.%20Juliet%2C%20TN!5e0!3m2!1sen!2sus!4v1710000000000!5m2!1sen!2sus"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0, filter: 'grayscale(100%) invert(90%) contrast(85%)' }}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="w-full h-full object-cover opacity-60"
+                />
+            </div>
 
             {/* Overlay Box Container */}
-            <div className="absolute inset-0 z-20 flex items-center justify-start px-4 md:px-24 pointer-events-none">
+            <div className="location-card-wrapper">
                 <div
-                    className="bg-[#141414]/90 backdrop-blur-md border border-white/10 p-8 rounded-2xl shadow-2xl relative overflow-hidden group h-full flex flex-col justify-between"
+                    className="bg-[#141414]/90 backdrop-blur-md border border-white/10 p-8 rounded-2xl shadow-2xl relative overflow-hidden group h-auto md:h-full flex flex-col justify-between location-card-inner max-w-md"
                 >
                     {/* Glow Effect */}
                     <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#B54A3C] rounded-full blur-[60px] opacity-20 pointer-events-none" />
@@ -38,7 +90,7 @@ const LocationSection = () => {
                             VISIT THE ARMORY
                         </Title>
 
-                        <div className="space-y-8 flex-grow">
+                        <div className="space-y-8 flex-grow mb-8 md:mb-0">
                             <div className="flex items-start gap-4">
                                 <div className="p-2 bg-white/5 rounded-lg border border-white/10 text-[#B54A3C]">
                                     <MapPin size={24} />

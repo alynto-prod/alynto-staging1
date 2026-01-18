@@ -10,7 +10,7 @@ const AgencyCTA = () => {
     const navigate = useNavigate();
 
     return (
-        <div style={{ padding: '6rem 10%', width: '100%', boxSizing: 'border-box', background: 'linear-gradient(to bottom, rgba(26, 26, 26, 0.8), #010101)', position: 'relative', zIndex: 10 }}>
+        <div className="w-full relative z-10 pt-32 pb-24 px-4 md:px-[10%]" style={{ boxSizing: 'border-box', background: 'linear-gradient(to bottom, rgba(26, 26, 26, 0.8), #010101)' }}>
             <div
                 className="rounded-2xl relative overflow-hidden"
                 style={{ maxWidth: '900px', margin: '0 auto', boxShadow: '0 0 60px rgba(255, 255, 255, 0.15)', backgroundColor: 'rgba(20, 20, 20, 0.6)', backdropFilter: 'blur(20px)' }}
@@ -18,7 +18,7 @@ const AgencyCTA = () => {
                 {/* Background Element */}
                 <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-armory-red/10 to-transparent pointer-events-none" />
 
-                <div className="relative z-10" style={{ padding: '5rem' }}>
+                <div className="relative z-10 p-8 md:p-24">
                     <Row gutter={[48, 48]} align="middle">
                         <Col xs={24} md={14}>
                             <div className="flex items-center gap-3 mb-4">

@@ -24,7 +24,7 @@ const Hero = () => {
     };
 
     return (
-        <div className="relative w-full h-screen overflow-hidden bg-[#0A0A0A]">
+        <div className="relative w-full min-h-screen md:h-screen overflow-x-hidden md:overflow-hidden bg-[#0A0A0A]">
             {/* 1. Background Layer - Fixed to Viewport to ensure full coverage */}
             <div className="fixed inset-0 w-full h-full z-0">
                 {/* Base Dark Background */}
@@ -44,8 +44,57 @@ const Hero = () => {
                 <div className="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-[#962E20]/30 blur-[120px] rounded-full pointer-events-none mix-blend-screen" />
             </div>
 
+            {/* Responsive Styles for Hero Grid */}
+            <style>{`
+                .hero-grid {
+                    display: grid;
+                    grid-template-columns: 1fr; /* Mobile: 1 column */
+                    gap: 1.5rem;
+                    width: 100%;
+                    padding-left: 1.5rem;
+                    padding-right: 1.5rem;
+                    padding-bottom: 3rem; /* Spacing from bottom on mobile */
+                    margin-top: 4rem; /* Spacing from heading */
+                    position: relative; /* Mobile: Flow naturally */
+                }
+                .hero-item {
+                    border-left-width: 4px;
+                    padding-left: 1.5rem; /* Mobile padding */
+                    padding-top: 1rem;
+                    padding-bottom: 1rem;
+                    border-color: #FFFFFF;
+                }
+                @media (min-width: 768px) {
+                    .hero-grid {
+                        position: absolute; /* Desktop: Pin to bottom */
+                        bottom: 2rem;
+                        left: 0;
+                        margin-top: 0;
+                        padding-bottom: 0;
+                        
+                        grid-template-columns: repeat(5, 1fr); /* Desktop: 5 columns */
+                        gap: 2rem;
+                        padding-left: 8vw; /* Restored 8vw indent */
+                        padding-right: 8vw;
+                    }
+                    .hero-item {
+                        padding-left: 2rem; /* Restored 2rem spacing */
+                    }
+                    .hero-container-padding {
+                        padding-top: 0 !important;
+                        padding-bottom: 0 !important;
+                        justify-content: center !important;
+                    }
+                }
+                .hero-container-padding {
+                    padding-top: 25vh; /* Aggressive mobile spacing */
+                    padding-bottom: 5rem;
+                    justify-content: flex-start;
+                }
+            `}</style>
+
             {/* 2. Main Content Container */}
-            <div className="relative z-10 w-full h-full max-w-[1920px] mx-auto px-6 md:px-32 flex flex-col justify-center">
+            <div className="relative z-10 w-full min-h-screen md:h-full max-w-[1920px] mx-auto px-6 md:px-32 flex flex-col hero-container-padding">
 
                 {/* Typography Block */}
                 <div className="flex flex-col space-y-2 select-none mt-0 md:mt-[-5vh]">
@@ -57,7 +106,7 @@ const Hero = () => {
                         style={{ color: '#FFFFFF' }}
                     >
                         <motion.span
-                            className="block text-[10vw] md:text-[5rem] lg:text-[6rem] xl:text-[7rem] text-white"
+                            className="block text-[12vw] md:text-[4rem] lg:text-[5.5rem] xl:text-[6.5rem] text-white"
                             style={{ color: '#FFFFFF' }}
                             initial="hidden"
                             animate="visible"
@@ -67,7 +116,7 @@ const Hero = () => {
                             FIREARM
                         </motion.span>
                         <motion.span
-                            className="block text-[10vw] md:text-[5rem] lg:text-[6rem] xl:text-[7rem] text-white/90"
+                            className="block text-[12vw] md:text-[4rem] lg:text-[5.5rem] xl:text-[6.5rem] text-white/90"
                             style={{ color: 'rgba(255, 255, 255, 0.9)' }}
                             initial="hidden"
                             animate="visible"
@@ -80,17 +129,7 @@ const Hero = () => {
                 </div>
 
                 {/* Bottom Feature Grid */}
-                <div
-                    className="absolute bottom-8 left-0 w-full px-6 md:px-48 grid grid-cols-5 gap-8"
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(5, 1fr)',
-                        gap: '2rem',
-                        bottom: '2rem',
-                        paddingLeft: '8vw',
-                        paddingRight: '8vw'
-                    }}
-                >
+                <div className="hero-grid">
                     {[
                         { id: '01', title: 'Product Design', desc: 'FFL Transfers' },
                         { id: '02', title: 'Packaging Design', desc: 'Custom Builds' },
@@ -100,8 +139,7 @@ const Hero = () => {
                     ].map((item, i) => (
                         <motion.div
                             key={item.id}
-                            className="flex flex-col space-y-2 group cursor-pointer border-l-4 pl-12 py-4 rounded-r-lg" // Increased padding
-                            style={{ borderColor: '#FFFFFF', paddingLeft: '2rem' }}
+                            className="flex flex-col space-y-2 group cursor-pointer rounded-r-lg hero-item"
                             initial="hidden"
                             animate="visible"
                             whileHover={{

@@ -8,7 +8,7 @@ const { Title, Paragraph } = Typography;
 
 const ContactCTA = () => {
     return (
-        <section className="relative w-full h-[600px] overflow-hidden flex items-center justify-center">
+        <section className="relative w-full min-h-[600px] py-24 overflow-hidden flex items-center justify-center">
             {/* Background Image with Parallax-like fixed attachment or just cover */}
             <div
                 className="absolute inset-0 bg-cover bg-center z-0"

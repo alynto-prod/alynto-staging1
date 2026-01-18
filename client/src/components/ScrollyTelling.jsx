@@ -123,6 +123,14 @@ const ScrollyTelling = () => {
 
     return (
         <section ref={containerRef} className="relative h-[400vh] bg-[#010101]">
+            <style>{`
+                .st-mobile { display: block; }
+                .st-desktop { display: none; }
+                @media (min-width: 768px) {
+                    .st-mobile { display: none !important; }
+                    .st-desktop { display: block !important; }
+                }
+            `}</style>
             <div className="sticky top-0 h-screen w-full overflow-hidden" style={{ top: 0 }}>
 
                 {/* Canvas Layer - Absolute Z-0 */}
@@ -153,57 +161,92 @@ const ScrollyTelling = () => {
                         <p style={{ fontSize: 'clamp(1rem, 4vw, 1.5rem)', fontWeight: '300', opacity: 0.8 }}>Equipment that works for any situation</p>
                     </motion.div>
 
-                    {/* Beat B: Modular (Right) */}
+                    {/* Beat B: Modular */}
+                    {/* Mobile: Centered, No Slide */}
                     <motion.div
-                        className="absolute top-1/2 max-w-lg text-right -translate-y-1/2"
+                        className="st-mobile absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-4 text-center"
+                        style={{ opacity: beatBOpacity, color: '#ffffff' }}
+                    >
+                        <h3 style={{ fontSize: 'clamp(2.5rem, 10vw, 4rem)', fontWeight: 'bold', marginBottom: '0.5rem' }}>MODULAR</h3>
+                        <p style={{ fontSize: '1.25rem', opacity: 0.8 }}>Adapt instantly.<br />Complete system integration.</p>
+                    </motion.div>
+
+                    {/* Desktop: Right Aligned, Slide Animation -> Fixed Position Fade */}
+                    <motion.div
+                        className="st-desktop absolute top-1/2 -translate-y-1/2 max-w-md text-right"
                         style={{
                             right: '5%',
                             left: 'auto',
                             opacity: beatBOpacity,
-                            x: beatBX,
                             color: '#ffffff'
                         }}
                     >
-                        <h3 style={{ fontSize: 'clamp(2.5rem, 10vw, 4rem)', fontWeight: 'bold', marginBottom: '0.5rem' }}>MODULAR</h3>
-                        <p style={{ fontSize: 'clamp(1rem, 3vw, 1.25rem)', opacity: 0.8 }}>Adapt instantly. Complete system integration.</p>
+                        <h3 style={{ fontSize: '4rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>MODULAR</h3>
+                        <p style={{ fontSize: '1.25rem', opacity: 0.8 }}>Adapt instantly. Complete system integration.</p>
                     </motion.div>
 
-                    {/* Beat C: Lightweight (Left) */}
+
+                    {/* Beat C: Lightweight */}
+                    {/* Mobile: Centered, No Slide */}
                     <motion.div
-                        className="absolute top-1/2 max-w-lg text-left -translate-y-1/2"
+                        className="st-mobile absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-4 text-center"
+                        style={{ opacity: beatCOpacity, color: '#ffffff' }}
+                    >
+                        <h3 style={{ fontSize: 'clamp(2.5rem, 10vw, 4rem)', fontWeight: 'bold', marginBottom: '0.5rem' }}>LIGHTWEIGHT</h3>
+                        <p style={{ fontSize: '1.25rem', opacity: 0.8 }}>Aerospace grade alloys.<br />Zero compromise.</p>
+                    </motion.div>
+
+                    {/* Desktop: Left Aligned, Slide Animation -> Fixed Position Fade */}
+                    <motion.div
+                        className="st-desktop absolute top-1/2 -translate-y-1/2 max-w-md text-left"
                         style={{
                             left: '5%',
                             right: 'auto',
                             opacity: beatCOpacity,
-                            x: beatCX,
                             color: '#ffffff'
                         }}
                     >
-                        <h3 style={{ fontSize: 'clamp(2.5rem, 10vw, 4rem)', fontWeight: 'bold', marginBottom: '0.5rem' }}>LIGHTWEIGHT</h3>
-                        <p style={{ fontSize: 'clamp(1rem, 3vw, 1.25rem)', opacity: 0.8 }}>Aerospace grade alloys. Zero compromise.</p>
+                        <h3 style={{ fontSize: '4rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>LIGHTWEIGHT</h3>
+                        <p style={{ fontSize: '1.25rem', opacity: 0.8 }}>Aerospace grade alloys. Zero compromise.</p>
                     </motion.div>
 
+
                     {/* Beat D: Persistent 3/4 Down (Text) + Centered List (Right) */}
-                    {/* Text Group */}
+                    {/* Text Group - Strictly Left on Desktop to avoid List, Centered Upper on Mobile */}
                     <motion.div
-                        className="absolute top-[75%] left-0 w-full px-6 md:px-20 text-center md:text-left"
+                        className="absolute top-[50%] md:top-1/2 md:-translate-y-1/2 left-0 w-full md:w-auto md:left-[5%] px-6 md:px-0 text-center md:text-left pointer-events-none"
                         style={{
                             opacity: beatDOpacity,
                             y: beatDY,
                             color: '#ffffff'
                         }}
                     >
-                        <div className="md:w-1/2">
+                        <div className="md:max-w-md mx-auto md:mx-0 pointer-events-auto">
                             <h2 style={{ fontSize: 'clamp(2.5rem, 8vw, 5rem)', fontWeight: 'bold', marginBottom: '1rem', lineHeight: '1' }}>BUILD YOURS TODAY</h2>
-                            <a href="#configurator" className="pointer-events-auto inline-block px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold tracking-widest text-sm uppercase transition-colors" style={{ textDecoration: 'none', color: 'white' }}>
+                            <a href="#configurator" className="inline-block px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold tracking-widest text-sm uppercase transition-colors" style={{ textDecoration: 'none', color: 'white' }}>
                                 Start Configuration
                             </a>
                         </div>
                     </motion.div>
 
-                    {/* List Group - Vertically Centered on Right */}
+                    {/* List Group */}
+                    {/* Mobile: Beneath Text, Inline Wrapped */}
                     <motion.div
-                        className="absolute top-1/2 -translate-y-1/2 flex flex-col gap-4 text-right pointer-events-auto"
+                        className="st-mobile absolute top-[70%] left-0 w-full text-center pointer-events-auto"
+                        style={{ opacity: beatDOpacity, color: '#ffffff' }}
+                    >
+                        <div className="flex flex-wrap justify-center px-4 mx-auto" style={{ gap: '1.5rem', maxWidth: '500px' }}>
+                            {['Upper Receiver', 'Lower Receiver', 'Optics', 'Stock', 'Accessories'].map((item, index) => (
+                                <div key={index} className="text-sm font-bold tracking-wider text-white/80 bg-black/40 rounded-full backdrop-blur-sm border border-white/10" style={{ padding: '0.75rem 2rem' }}>
+                                    {item}
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
+
+                    {/* Desktop: Right Aligned, Vertical Center */}
+                    <motion.div
+                        className="st-desktop absolute top-1/2 -translate-y-1/2 flex flex-col gap-4 text-right pointer-events-auto"
                         style={{
                             right: '5%',
                             left: 'auto',

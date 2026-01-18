@@ -73,6 +73,14 @@ const ServicesOverview = () => {
                     gap: 1.5rem;
                     grid-auto-rows: 350px;
                 }
+                .services-padding {
+                    padding-left: 1.5rem;
+                    padding-right: 1.5rem;
+                    width: 100%;
+                    max-width: 90rem;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
                 @media (min-width: 768px) {
                     .bento-grid {
                         grid-template-columns: repeat(3, 1fr);
@@ -86,10 +94,14 @@ const ServicesOverview = () => {
                     .span-col-1 {
                         grid-column: span 1;
                     }
+                    .services-padding {
+                        padding-left: 8vw;
+                        padding-right: 8vw;
+                    }
                 }
             `}</style>
 
-            <div className="w-full max-w-[90rem] px-4 md:px-8" style={{ paddingLeft: '8vw', paddingRight: '8vw' }}>
+            <div className="services-padding">
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}

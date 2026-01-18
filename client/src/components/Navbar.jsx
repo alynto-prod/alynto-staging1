@@ -46,7 +46,7 @@ const Navbar = () => {
                 justifyContent: 'space-between',
                 background: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%)',
                 borderBottom: 'none',
-                padding: '0 24px',
+                borderBottom: 'none',
                 height: 'auto',
                 minHeight: '100px', // Increased height for larger logo
                 backdropFilter: 'none',
@@ -58,7 +58,7 @@ const Navbar = () => {
                 <img
                     src={logo}
                     alt="Rusty Oak Armory"
-                    className="h-14 w-auto object-contain"
+                    className="h-10 md:h-14 w-auto object-contain"
                     style={{ maxHeight: '64px' }} // Increased from 40px
                 />
             </div>
