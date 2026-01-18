@@ -13,6 +13,7 @@ import AgencyCTA from './components/AgencyCTA';
 import ScrollyTelling from './components/ScrollyTelling';
 import ServicesOverview from './components/ServicesOverview';
 import LocationSection from './components/LocationSection';
+import ContactCTA from './components/ContactCTA';
 
 // Landing Page for the "Ground Up" rebuild
 const LandingPage = () => (
@@ -22,6 +23,7 @@ const LandingPage = () => (
     <ScrollyTelling />
     <ServicesOverview />
     <LocationSection />
+    <ContactCTA />
   </div>
 );
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Typography, Row, Col } from 'antd';
 import { Shield, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/logo.png';
 
 const { Title, Paragraph } = Typography;
 
@@ -48,7 +49,7 @@ const AgencyCTA = () => {
                             <div className="relative">
                                 <div className="absolute inset-0 bg-armory-red/20 blur-3xl rounded-full" />
                                 <img
-                                    src="/src/assets/logo.png"
+                                    src={logo}
                                     alt="Agency Badge"
                                     className="relative z-10 opacity-90 drop-shadow-2xl"
                                     style={{ width: '160px', height: 'auto' }}

@@ -109,12 +109,7 @@ const Hero = () => {
                             variants={fadeIn}
                             transition={{ delay: 1.0 + (i * 0.1) }}
                         >
-                            <span
-                                className="font-bebas text-3xl md:text-4xl"
-                                style={{ color: '#B54A3C' }}
-                            >
-                                #{item.id}
-                            </span>
+
                             <h3
                                 className="text-white font-source font-semibold text-xl md:text-2xl tracking-wide whitespace-nowrap"
                                 style={{ color: '#FFFFFF', fontSize: '1.5rem' }}
