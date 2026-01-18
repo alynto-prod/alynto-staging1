@@ -45,14 +45,14 @@ const AgencyCTA = () => {
                             </Button>
                         </Col>
 
-                        <Col xs={24} md={10} className="flex justify-center md:justify-end">
+                        <Col xs={24} md={10} className="flex justify-center">
                             <div className="relative">
                                 <div className="absolute inset-0 bg-armory-red/20 blur-3xl rounded-full" />
                                 <img
                                     src={logo}
                                     alt="Agency Badge"
                                     className="relative z-10 opacity-90 drop-shadow-2xl"
-                                    style={{ width: '160px', height: 'auto' }}
+                                    style={{ width: '240px', height: 'auto' }}
                                 />
                             </div>
                         </Col>

@@ -9,6 +9,8 @@ import AgencyPricing from './components/AgencyPricing';
 const { Footer } = Layout;
 
 import Hero from './components/Hero';
+import BrandStory from './components/BrandStory';
+import Testimonials from './components/Testimonials';
 import AgencyCTA from './components/AgencyCTA';
 import ScrollyTelling from './components/ScrollyTelling';
 import ServicesOverview from './components/ServicesOverview';
@@ -19,8 +21,10 @@ import ContactCTA from './components/ContactCTA';
 const LandingPage = () => (
   <div className="min-h-screen bg-[#010101]">
     <Hero />
+    <BrandStory />
     <AgencyCTA />
     <ScrollyTelling />
+    <Testimonials />
     <ServicesOverview />
     <LocationSection />
     <ContactCTA />

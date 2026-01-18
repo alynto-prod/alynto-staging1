@@ -110,6 +110,17 @@ const AgencyPricing = () => {
                     />
                 </div>
 
+                <div className="mt-8 flex justify-end">
+                    <Button
+                        size="large"
+                        className="bg-transparent border border-armory-red text-armory-red hover:!bg-armory-red hover:!text-white h-12 px-8 uppercase font-bold tracking-wider"
+                        onClick={() => navigate('/contact')}
+                        style={{ color: '#B54A3C', borderColor: '#B54A3C' }}
+                    >
+                        Make a Custom Request
+                    </Button>
+                </div>
+
                 <div className="mt-12 p-6 border border-armory-red/30 bg-armory-red/5 rounded-sm">
                     <Title level={4} style={{ color: '#fff', margin: '0 0 12px 0' }}>Ordering Instructions</Title>
                     <Paragraph className="text-gray-400 mb-0">
