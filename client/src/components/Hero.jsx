@@ -202,9 +202,13 @@ const Hero = () => {
                     display: flex;
                     flex-direction: row;
                     gap: 3rem; /* Spacing between items */
-                    animation: scroll 20s linear infinite; /* Slow smooth scroll */
+                    animation: scroll 25s linear infinite; /* Slightly slower for better readability */
                     width: max-content;
                     padding-left: 1rem; /* Initial offset */
+                }
+                @keyframes scroll {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(calc(-50% - 1.5rem)); }
                 }
                 .logo-item {
                     flex-direction: row;
@@ -274,30 +278,42 @@ const Hero = () => {
 
                 <div className="hero-content-grid w-full h-full">
                     {/* Left Column: Typography */}
-                    <div className="hero-col-left flex flex-col justify-center h-full space-y-2 select-none">
+                    <div className="hero-col-left flex flex-col justify-center h-full space-y-4 select-none">
+                        {/* Subheading */}
+                        <motion.span
+                            className="text-armory-red font-source font-bold tracking-[0.3em] text-xs md:text-sm lg:text-base uppercase"
+                            style={{ color: '#B54A3C' }}
+                            initial="hidden"
+                            animate="visible"
+                            variants={fadeInLeft}
+                            transition={{ delay: 0.2 }}
+                        >
+                            Tennessee's Highest Rated
+                        </motion.span>
+
                         <h1
-                            className="font-bebas leading-[0.9] tracking-tight text-white mb-0"
+                            className="font-bebas leading-[0.95] tracking-tight text-white mb-0"
                             style={{ color: '#FFFFFF' }}
                         >
                             <motion.span
-                                className="block text-[12vw] md:text-[3.5rem] lg:text-[4.5rem] xl:text-[5.5rem] text-white"
+                                className="block text-[11vw] md:text-[3rem] lg:text-[4.5rem] xl:text-[5.5rem] text-white"
                                 style={{ color: '#FFFFFF' }}
                                 initial="hidden"
                                 animate="visible"
                                 variants={fadeInUp}
                                 transition={{ delay: 0.4 }}
                             >
-                                FIREARM
+                                PROFESSIONAL FIREARMS
                             </motion.span>
                             <motion.span
-                                className="block text-[12vw] md:text-[3.5rem] lg:text-[4.5rem] xl:text-[5.5rem] text-white/90"
+                                className="block text-[9vw] md:text-[2.5rem] lg:text-[3.5rem] xl:text-[4.5rem] text-white/90"
                                 style={{ color: 'rgba(255, 255, 255, 0.9)' }}
                                 initial="hidden"
                                 animate="visible"
                                 variants={fadeInUp}
                                 transition={{ delay: 0.6 }}
                             >
-                                SPECIALIST
+                                ENGINEERING & CUSTOM MODIFICATION
                             </motion.span>
                         </h1>
                     </div>
