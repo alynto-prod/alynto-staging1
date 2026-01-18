@@ -81,24 +81,27 @@ const Hero = () => {
 
                 {/* Bottom Feature Grid */}
                 <div
-                    className="absolute bottom-8 left-0 w-full px-6 md:px-64 grid grid-cols-4 gap-16"
+                    className="absolute bottom-8 left-0 w-full px-6 md:px-48 grid grid-cols-5 gap-8"
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(4, 1fr)',
-                        gap: '4rem',
-                        bottom: '2rem'
+                        gridTemplateColumns: 'repeat(5, 1fr)',
+                        gap: '2rem',
+                        bottom: '2rem',
+                        paddingLeft: '8vw',
+                        paddingRight: '8vw'
                     }}
                 >
                     {[
                         { id: '01', title: 'Product Design', desc: 'FFL Transfers' },
                         { id: '02', title: 'Packaging Design', desc: 'Custom Builds' },
                         { id: '03', title: 'Photo & Film', desc: 'Gunsmithing' },
-                        { id: '04', title: 'Creative Direction', desc: 'NFA Items' }
+                        { id: '04', title: 'Creative Direction', desc: 'NFA Items' },
+                        { id: '05', title: 'Logistics', desc: 'Firearm Shipping' }
                     ].map((item, i) => (
                         <motion.div
                             key={item.id}
-                            className="flex flex-col space-y-2 group cursor-pointer border-l-4 pl-8 py-4 rounded-r-lg" // Increased padding
-                            style={{ borderColor: '#FFFFFF' }}
+                            className="flex flex-col space-y-2 group cursor-pointer border-l-4 pl-12 py-4 rounded-r-lg" // Increased padding
+                            style={{ borderColor: '#FFFFFF', paddingLeft: '2rem' }}
                             initial="hidden"
                             animate="visible"
                             whileHover={{
