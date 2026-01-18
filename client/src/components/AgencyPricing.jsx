@@ -69,18 +69,18 @@ const AgencyPricing = () => {
         <div className="min-h-screen bg-armory-black pt-28 pb-12 px-4">
             <div className="max-w-7xl mx-auto">
                 <Breadcrumb
-                    className="mb-8"
+                    className="mb-16"
                     items={[
                         { title: <a href="/" className="text-gray-400 hover:text-white">Home</a> },
-                        { title: <span className="text-armory-red">Agency Pricing</span> },
+                        { title: <span className="text-armory-red" style={{ color: '#B54A3C' }}>Agency Pricing</span> },
                     ]}
                 />
 
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
                     <div>
                         <div className="flex items-center gap-3 mb-2">
-                            <ShieldCheck className="text-armory-red" size={32} />
-                            <span className="text-armory-red font-bold uppercase tracking-widest text-sm">Authorized Personnel Only</span>
+                            <ShieldCheck size={32} color="#B54A3C" />
+                            <span style={{ color: '#B54A3C' }} className="font-bold uppercase tracking-widest text-sm">Authorized Personnel Only</span>
                         </div>
                         <Title level={1} style={{ color: '#fff', fontFamily: 'Bebas Neue', margin: 0, textTransform: 'uppercase' }}>
                             Welcome, {agencyName}
