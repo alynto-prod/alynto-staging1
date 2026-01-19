@@ -41,7 +41,7 @@ function App() {
           colorBgBase: '#1A1A1A',
           colorTextBase: '#FFFFFF',
           fontFamily: "'Source Sans Pro', sans-serif",
-          borderRadius: 2,
+          borderRadius: 0,
         },
       }}
     >
