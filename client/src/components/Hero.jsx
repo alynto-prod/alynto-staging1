@@ -48,11 +48,11 @@ const Hero = () => {
             <style>{`
                 .hero-grid {
                     display: grid;
-                    grid-template-columns: 1fr 1fr; /* Mobile: 2 columns */
+                    grid-template-columns: 1fr; /* Mobile: 1 column stack to prevent overflow */
                     gap: 0.75rem;
                     width: 100%;
-                    padding-left: 1.5rem;
-                    padding-right: 1.5rem;
+                    padding-left: 0; /* Remove redundant padding */
+                    padding-right: 0;
                     padding-bottom: 3rem; /* Spacing from bottom on mobile */
                     margin-top: 2rem; /* Reduced spacing from heading */
                     position: relative; /* Mobile: Flow naturally */
@@ -401,8 +401,8 @@ const Hero = () => {
                         >
 
                             <h3
-                                className="text-white font-source font-semibold text-xl md:text-2xl tracking-wide whitespace-nowrap"
-                                style={{ color: '#FFFFFF', fontSize: '1.5rem' }}
+                                className="text-white font-source font-semibold text-lg md:text-2xl tracking-wide"
+                                style={{ color: '#FFFFFF' }}
                             >
                                 {item.desc}
                             </h3>
